@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using CoBCCanteen.ViewModels;
-using CoBCCanteen.Views;
 using Xamarin.Forms;
 
 namespace CoBCCanteen
@@ -11,8 +9,6 @@ namespace CoBCCanteen
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-            Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
         }
 
     }

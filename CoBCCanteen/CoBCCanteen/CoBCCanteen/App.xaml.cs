@@ -1,8 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using CoBCCanteen.Services;
-using CoBCCanteen.Views;
 
 namespace CoBCCanteen
 {
@@ -12,8 +10,6 @@ namespace CoBCCanteen
         public App ()
         {
             InitializeComponent();
-
-            DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
         }
 
