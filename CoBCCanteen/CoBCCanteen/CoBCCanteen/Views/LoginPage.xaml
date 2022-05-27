@@ -2,9 +2,10 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="CoBCCanteen.Views.LoginPage">
+    x:Class="CoBCCanteen.Views.LoginPage"
+    BackgroundColor="#ffffff">
     <ContentPage.Content>
-        <StackLayout BackgroundColor="#ffffff" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="40" >
+        <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="40" >
             <Image Source="HeaderCoBC" HorizontalOptions="Center" HeightRequest="75" />
             <Label Text="Canteen Ordering App" FontSize="28" HorizontalOptions="Center" Margin="0, 25, 0, 10" />
             <Entry x:Name="txtID" Placeholder="Student ID" Keyboard="Numeric" />
