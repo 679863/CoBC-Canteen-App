@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="CoBCCanteen.Views.LoginPage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#ffffff" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="40" >
+            <Image Source="HeaderCoBC" HorizontalOptions="Center" HeightRequest="75" />
+            <Label Text="Canteen Ordering App" FontSize="28" HorizontalOptions="Center" Margin="0, 25, 0, 10" />
+            <Entry x:Name="txtID" Placeholder="Student ID" Keyboard="Numeric" />
+            <Entry x:Name="txtPassword" Placeholder="Password" IsPassword="True" />
+            <Button Clicked="SubmitLogin" Text="Login" BackgroundColor="#00a9e0" TextColor="#ffffff" Margin="0, 5, 0, 25" />
+            <Label Text="Don't have an account? Register here" HorizontalOptions="Center" TextColor="#00a9e0" TextDecorations="Underline">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecogniser_Tapped"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
+
