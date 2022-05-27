@@ -13,8 +13,6 @@ namespace CoBCCanteen.Views
 		{
 			InitializeComponent();
 		}
-
-		
 	}
 }
 
