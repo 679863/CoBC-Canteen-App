@@ -5,11 +5,14 @@
        Title="CoBCCanteen"
        x:Class="CoBCCanteen.AppShell">
 
-    <!--
-        The overall app visual hierarchy is defined here, along with navigation.
-    
-        https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
-    -->
+
+    <ShellItem Route="LoginPage" FlyoutItemIsVisible="False">
+        <ShellContent ContentTemplate="{DataTemplate local:LoginPage}"/>
+    </ShellItem>
+
+    <FlyoutItem Title="Order">
+        <ShellContent ContentTemplate="{DataTemplate local:OrderPage}" Route="OrderPage"/>
+    </FlyoutItem>
 
     <Shell.Resources>
         <ResourceDictionary>
@@ -28,9 +31,5 @@
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
         </ResourceDictionary>
     </Shell.Resources>
-
-    <TabBar>
-        <ShellContent Title="Register" Icon="icon_about.png" Route="AboutPage" ContentTemplate="{DataTemplate local:RegisterPage}" />
-    </TabBar>
 </Shell>
 

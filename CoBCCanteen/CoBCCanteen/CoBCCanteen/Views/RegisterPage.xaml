@@ -3,18 +3,21 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="CoBCCanteen.Views.RegisterPage"
-    BackgroundColor="#ffffff">
+    BackgroundColor="#ffffff"
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarIsVisible="False"
+    Shell.FlyoutBehavior="Disabled">
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="40">
             <Image Source="HeaderCoBC" HorizontalOptions="Center" HeightRequest="75" />
             <Label Text="Sign Up" FontSize="28" HorizontalOptions="Center" Margin="0, 25, 0, 10" />
-            <Entry x:Name="txtFirstName" TextChanged="txtFirstName_TextChanged" Placeholder="First Name" />
-            <Entry x:Name="txtLastName" TextChanged="txtLastName_TextChanged" Placeholder="Last Name" />
-            <Entry x:Name="txtID" TextChanged="txtID_TextChanged" Placeholder="Student ID" Keyboard="Numeric" />
-            <Entry x:Name="txtEmail" TextChanged="txtEmail_TextChanged" Placeholder="College Email" />
-            <Entry x:Name="txtPassword" TextChanged="txtPassword_TextChanged" Placeholder="Password" IsPassword="True" />
-            <Entry x:Name="txtPasswordConfirm" TextChanged="txtPasswordConfirm_TextChanged" Placeholder="Confirm Password" IsPassword="True" />
-            <Button Clicked="SubmitSignUp" Text="Sign Up" BackgroundColor="#00a9e0" TextColor="#ffffff" Margin="0, 5, 0, 25" />
+            <Entry x:Name="txtFirstName" Placeholder="First Name" />
+            <Entry x:Name="txtLastName" Placeholder="Last Name" />
+            <Entry x:Name="txtID" Placeholder="Student ID" Keyboard="Numeric" />
+            <Entry x:Name="txtEmail" Placeholder="College Email" />
+            <Entry x:Name="txtPassword" Placeholder="Password" IsPassword="True" />
+            <Entry x:Name="txtPasswordConfirm" Placeholder="Confirm Password" IsPassword="True" />
+            <Button Clicked="Button_Clicked" Text="Sign Up" BackgroundColor="#00a9e0" TextColor="#ffffff" Margin="0, 5, 0, 25" />
             <Label Text="Already have an account? Login here" HorizontalOptions="Center" TextColor="#00a9e0" TextDecorations="Underline">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Tapped="TapGestureRecogniser_Tapped"/>
