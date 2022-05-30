@@ -8,12 +8,14 @@
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.2" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Models\" />
     <None Remove="ViewModels\" />
     <None Remove="Services\" />
     <None Remove="Views\" />
+    <None Remove="Xamarin.CommunityToolkit" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
