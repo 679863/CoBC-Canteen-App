@@ -2,11 +2,16 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:CoBCCanteen.ViewModels"
     x:Class="CoBCCanteen.Views.RegisterPage"
+    x:DataType="viewmodels:RegisterPageViewModel"
     BackgroundColor="#ffffff"
     Shell.NavBarIsVisible="False"
     Shell.TabBarIsVisible="False"
     Shell.FlyoutBehavior="Disabled">
+    <ContentPage.BindingContext>
+        <viewmodels:RegisterPageViewModel/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="40">
             <Image Source="HeaderCoBC" HorizontalOptions="Center" HeightRequest="75" />
@@ -17,10 +22,10 @@
             <Entry x:Name="txtEmail" Placeholder="College Email" />
             <Entry x:Name="txtPassword" Placeholder="Password" IsPassword="True" />
             <Entry x:Name="txtPasswordConfirm" Placeholder="Confirm Password" IsPassword="True" />
-            <Button Clicked="Button_Clicked" Text="Sign Up" BackgroundColor="#00a9e0" TextColor="#ffffff" Margin="0, 5, 0, 25" />
+            <Button Command="{Binding RegisterUser}" Text="Sign Up" BackgroundColor="#00a9e0" TextColor="#ffffff" Margin="0, 5, 0, 25" />
             <Label Text="Already have an account? Login here" HorizontalOptions="Center" TextColor="#00a9e0" TextDecorations="Underline">
                 <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="TapGestureRecogniser_Tapped"/>
+                    <TapGestureRecognizer Command="{Binding DisplayLogin}"/>
                 </Label.GestureRecognizers>
             </Label>
         </StackLayout>
