@@ -24,14 +24,32 @@
         <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="40">
             <Image Source="HeaderCoBC" HorizontalOptions="Center" HeightRequest="75" />
             <Label Text="Sign Up" FontSize="28" HorizontalOptions="Center" Margin="0, 25, 0, 10" />
-            <Entry x:Name="txtFirstName" Placeholder="First Name" />
-            <Entry Placeholder="Last Name" Keyboard="Numeric">
-                
-
+            <Entry Placeholder="First Name">
+                <Entry.Behaviors>
+                    <xct:CharactersValidationBehavior
+                            DecorationFlags="Trim"
+                            RegexPattern="^[A-Za-z]+$"
+                            MinimumCharacterCount="2"
+                            MaximumCharacterCount="64"
+                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                        />
+                </Entry.Behaviors>
+            </Entry>
+            <Entry Placeholder="Last Name">
+                <Entry.Behaviors>
+                    <xct:CharactersValidationBehavior
+                        DecorationFlags="Trim"
+                        RegexPattern="^[A-Za-z]+$"
+                        MinimumCharacterCount="2"
+                        MaximumCharacterCount="64"
+                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                    />
+                </Entry.Behaviors>
             </Entry> 
             <Entry Placeholder="Student ID" Keyboard="Numeric">
                 <Entry.Behaviors>
                     <xct:CharactersValidationBehavior
+                        DecorationFlags="Trim"
                         CharacterType="Digit"
                         MaximumCharacterCount="6"
                         MinimumCharacterCount="6"
@@ -40,23 +58,9 @@
                 </Entry.Behaviors>
             </Entry>
             <Entry Placeholder="College Email" >
-                <Entry.Behaviors>
-                    <xct:EmailValidationBehavior
-                        DecorationFlags="Trim"
-                        InvalidStyle="{StaticResource InvalidEntryStyle}"
-                    />
-                </Entry.Behaviors>
             </Entry>
             <Entry x:Name="txtPassword" Placeholder="Password" IsPassword="False" />
             <Entry x:Name="txtPasswordConfirm" Placeholder="Confirm Password" IsPassword="False" >
-                <Entry.Behaviors>
-                    <xct:RequiredStringValidationBehavior
-                        Flags="ValidateOnValueChanging"
-                        RequiredString="{Binding Source={x:Reference txtPassword}, Path=Text}"
-                    />
-
-                </Entry.Behaviors>
-
             </Entry>
             <Button Command="{Binding RegisterUser}" Text="Sign Up" BackgroundColor="#00a9e0" TextColor="#ffffff" Margin="0, 5, 0, 25" />
             <Label Text="Already have an account? Login here" HorizontalOptions="Center" TextColor="#00a9e0" TextDecorations="Underline">
