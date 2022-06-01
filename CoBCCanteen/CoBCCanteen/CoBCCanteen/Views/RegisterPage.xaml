@@ -2,7 +2,7 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.Behaviors;assembly=Xamarin.CommunityToolkit"
     xmlns:viewmodels="clr-namespace:CoBCCanteen.ViewModels"
     x:Class="CoBCCanteen.Views.RegisterPage"
     x:DataType="viewmodels:RegisterPageViewModel"
@@ -24,43 +24,101 @@
         <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="40">
             <Image Source="HeaderCoBC" HorizontalOptions="Center" HeightRequest="75" />
             <Label Text="Sign Up" FontSize="28" HorizontalOptions="Center" Margin="0, 25, 0, 10" />
-            <Entry Placeholder="First Name">
+            <Entry Placeholder="First Name" Text="{Binding Firstname, Mode=TwoWay}">
                 <Entry.Behaviors>
-                    <xct:CharactersValidationBehavior
+                    <xct:MultiValidationBehavior InvalidStyle="{StaticResource InvalidEntryStyle}">
+                        <xct:CharactersValidationBehavior
+                            DecorationFlags="Trim"
+                            MinimumCharacterCount="2"
+                            xct:MultiValidationBehavior.Error="The value is too short."
+                        />
+                        <xct:CharactersValidationBehavior
+                            DecorationFlags="Trim"
+                            Flags="ValidateOnUnfocusing"
+                            MaximumCharacterCount="64"
+                            xct:MultiValidationBehavior.Error="The value must be less than 64 characters."
+                        />
+                        <xct:CharactersValidationBehavior
                             DecorationFlags="Trim"
                             RegexPattern="^[A-Za-z]+$"
-                            MinimumCharacterCount="2"
-                            MaximumCharacterCount="64"
-                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                            xct:MultiValidationBehavior.Error="The value contains illegal character(s)."
                         />
+                    </xct:MultiValidationBehavior>
                 </Entry.Behaviors>
             </Entry>
             <Entry Placeholder="Last Name">
                 <Entry.Behaviors>
-                    <xct:CharactersValidationBehavior
-                        DecorationFlags="Trim"
-                        RegexPattern="^[A-Za-z]+$"
-                        MinimumCharacterCount="2"
-                        MaximumCharacterCount="64"
-                        InvalidStyle="{StaticResource InvalidEntryStyle}"
-                    />
+                    <xct:MultiValidationBehavior InvalidStyle="{StaticResource InvalidEntryStyle}">
+                        <xct:CharactersValidationBehavior
+                            DecorationFlags="Trim"
+                            MinimumCharacterCount="2"
+                            xct:MultiValidationBehavior.Error="The value is too short."
+                        />
+                        <xct:CharactersValidationBehavior
+                            DecorationFlags="Trim"
+                            Flags="ValidateOnUnfocusing"
+                            MaximumCharacterCount="64"
+                            xct:MultiValidationBehavior.Error="The value must be less than 64 characters."
+                        />
+                        <xct:CharactersValidationBehavior
+                            DecorationFlags="Trim"
+                            RegexPattern="^[A-Za-z]+$"
+                            xct:MultiValidationBehavior.Error="The value contains illegal character(s)."
+                        />
+                    </xct:MultiValidationBehavior>
                 </Entry.Behaviors>
             </Entry> 
             <Entry Placeholder="Student ID" Keyboard="Numeric">
                 <Entry.Behaviors>
-                    <xct:CharactersValidationBehavior
-                        DecorationFlags="Trim"
-                        CharacterType="Digit"
-                        MaximumCharacterCount="6"
-                        MinimumCharacterCount="6"
-                        InvalidStyle="{StaticResource InvalidEntryStyle}"
-                    />
+                    <xct:MultiValidationBehavior>
+                        <xct:CharactersValidationBehavior
+                            DecorationFlags="Trim"
+                            CharacterType="Digit"
+                            MaximumCharacterCount="6"
+                            MinimumCharacterCount="6"
+                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                            xct:MultiValidationBehavior.Error="The value must be 6 digits long."
+                        />
+                    </xct:MultiValidationBehavior>
                 </Entry.Behaviors>
             </Entry>
             <Entry Placeholder="College Email" >
             </Entry>
-            <Entry x:Name="txtPassword" Placeholder="Password" IsPassword="False" />
-            <Entry x:Name="txtPasswordConfirm" Placeholder="Confirm Password" IsPassword="False" >
+            <Entry x:Name="txtPassword" Placeholder="Password" IsPassword="True">
+                <Entry.Behaviors>
+                    <xct:MultiValidationBehavior InvalidStyle="{StaticResource InvalidEntryStyle}">
+                        <xct:CharactersValidationBehavior
+                            DecorationFlags="Trim"
+                            MinimumCharacterCount="8"
+                            xct:MultiValidationBehavior.Error="The password must be 8 or more characters long."
+                        />
+                        <xct:CharactersValidationBehavior
+                            DecorationFlags="Trim"
+                            Flags="ValidateOnUnfocusing"
+                            MaximumCharacterCount="32"
+                            xct:MultiValidationBehavior.Error="The password must be 32 or less characters long."
+                        />
+                        <xct:CharactersValidationBehavior
+                            DecorationFlags="Trim"
+                            RegexPattern=""
+                            xct:MultiValidationBehavior.Error="The value contains illegal character(s)."
+                        />
+                    </xct:MultiValidationBehavior>
+
+                </Entry.Behaviors>
+
+            </Entry>
+            <Entry Placeholder="Confirm Password" IsPassword="True" >
+                <Entry.Behaviors>
+                    <xct:MultiValidationBehavior>
+                        <xct:RequiredStringValidationBehavior
+                            Flags="ValidateOnValueChanging"
+                            RequiredString="{Binding Source={x:Reference txtPassword}, Path=Text}"
+                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                            xct:MultiValidationBehavior.Error="The passwords do not match."
+                        />
+                    </xct:MultiValidationBehavior>
+                </Entry.Behaviors>
             </Entry>
             <Button Command="{Binding RegisterUser}" Text="Sign Up" BackgroundColor="#00a9e0" TextColor="#ffffff" Margin="0, 5, 0, 25" />
             <Label Text="Already have an account? Login here" HorizontalOptions="Center" TextColor="#00a9e0" TextDecorations="Underline">

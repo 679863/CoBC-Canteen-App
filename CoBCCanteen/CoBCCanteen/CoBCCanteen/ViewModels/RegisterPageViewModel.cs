@@ -2,6 +2,9 @@
 using System.Windows.Input;
 using Xamarin.Forms;
 using CoBCCanteen.Views;
+using Xamarin.CommunityToolkit;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace CoBCCanteen.ViewModels
 {
@@ -9,20 +12,47 @@ namespace CoBCCanteen.ViewModels
 	{
 		public RegisterPageViewModel()
 		{
-			RegisterUser = new Command(OnRegister);
-			DisplayLogin = new Command(GoToLogin);
+			RegisterUser = new Command(async() => await OnRegister());
+			DisplayLogin = new Command(async() => await GoToLogin());
 		}
 
 		public ICommand RegisterUser { get; }
 		public ICommand DisplayLogin { get; }
 
-		async void OnRegister()
+		private string firstname;
+
+		public string Firstname
         {
-			await Shell.Current.DisplayAlert("Registered", "Your user account has been successfully registered!", "OK");
+			get => firstname;
+            set
+            {
+                if (value == firstname)
+                {
+					return;
+                }
+                else
+                {
+					firstname = value;
+					OnPropertyChanged();
+                }
+            }
+        }
+
+		private List<object> errorsFirstname;
+
+		public List<object> ErrorsFirstname
+        {
+			get => errorsFirstname;
+			set => errorsFirstname = value;
+        }
+
+		async Task OnRegister()
+		{
+			await Shell.Current.DisplayAlert(firstname, "Your user account has been successfully registered!", "OK");
 			await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
 		}
 
-		async void GoToLogin()
+		async Task GoToLogin()
         {
 			await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
 		}
