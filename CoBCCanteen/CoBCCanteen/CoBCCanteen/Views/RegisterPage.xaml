@@ -26,7 +26,7 @@
             <Label Text="Sign Up" FontSize="28" HorizontalOptions="Center" Margin="0, 25, 0, 10" />
             <Entry Placeholder="First Name" Text="{Binding Firstname, Mode=TwoWay}">
                 <Entry.Behaviors>
-                    <xct:MultiValidationBehavior InvalidStyle="{StaticResource InvalidEntryStyle}">
+                    <xct:MultiValidationBehavior x:Name="FirstnameValidation" IsValid="{Binding IsFirstnameValid}" Errors="{Binding errorFirstname}" Flags="ForceMakeValidWhenFocused" InvalidStyle="{StaticResource InvalidEntryStyle}">
                         <xct:CharactersValidationBehavior
                             DecorationFlags="Trim"
                             MinimumCharacterCount="2"
@@ -46,9 +46,9 @@
                     </xct:MultiValidationBehavior>
                 </Entry.Behaviors>
             </Entry>
-            <Entry Placeholder="Last Name">
+            <Entry Placeholder="Last Name" Text="{Binding Lastname, Mode=TwoWay}">
                 <Entry.Behaviors>
-                    <xct:MultiValidationBehavior InvalidStyle="{StaticResource InvalidEntryStyle}">
+                    <xct:MultiValidationBehavior x:Name="LastnameValidation" IsValid="{Binding IsLastnameValid}" Errors="{Binding errorLastname}" Flags="ForceMakeValidWhenFocused" InvalidStyle="{StaticResource InvalidEntryStyle}">
                         <xct:CharactersValidationBehavior
                             DecorationFlags="Trim"
                             MinimumCharacterCount="2"
@@ -68,25 +68,34 @@
                     </xct:MultiValidationBehavior>
                 </Entry.Behaviors>
             </Entry> 
-            <Entry Placeholder="Student ID" Keyboard="Numeric">
+            <Entry Placeholder="Student ID" Text="{Binding ID, Mode=TwoWay}" Keyboard="Numeric">
                 <Entry.Behaviors>
-                    <xct:MultiValidationBehavior>
+                    <xct:MultiValidationBehavior x:Name="IDValidation" IsValid="{Binding IsIDValid}" Errors="{Binding errorID}" Flags="ForceMakeValidWhenFocused" InvalidStyle="{StaticResource InvalidEntryStyle}">
                         <xct:CharactersValidationBehavior
                             DecorationFlags="Trim"
                             CharacterType="Digit"
                             MaximumCharacterCount="6"
                             MinimumCharacterCount="6"
-                            InvalidStyle="{StaticResource InvalidEntryStyle}"
                             xct:MultiValidationBehavior.Error="The value must be 6 digits long."
                         />
                     </xct:MultiValidationBehavior>
                 </Entry.Behaviors>
             </Entry>
-            <Entry Placeholder="College Email" >
-            </Entry>
-            <Entry x:Name="txtPassword" Placeholder="Password" IsPassword="True">
+            <Entry Placeholder="College Email" Text="{Binding Email, Mode=TwoWay}">
                 <Entry.Behaviors>
-                    <xct:MultiValidationBehavior InvalidStyle="{StaticResource InvalidEntryStyle}">
+                    <xct:MultiValidationBehavior x:Name="EmailValidation" IsValid="{Binding IsEmailValid}" Errors="{Binding errorEmail}" Flags="ForceMakeValidWhenFocused" InvalidStyle="{StaticResource InvalidEntryStyle}">
+                        <xct:EmailValidationBehavior
+                            DecorationFlags="Trim"
+                            RegexPattern="^([A-Za-z0-9.]+)@((student.cityofbristol.ac.uk)|(cityofbristol.ac.uk))$"
+                            MaximumLength="254"
+                            xct:MultiValidationBehavior.Error="The entered email does not match a college email."
+                        />
+                    </xct:MultiValidationBehavior>
+                </Entry.Behaviors>
+            </Entry>
+            <Entry x:Name="txtPassword" Placeholder="Password" Text="{Binding Password, Mode=TwoWay}" IsPassword="True">
+                <Entry.Behaviors>
+                    <xct:MultiValidationBehavior x:Name="PasswordValidation" IsValid="{Binding IsPasswordValid}" Errors="{Binding errorPassword}" Flags="ForceMakeValidWhenFocused" InvalidStyle="{StaticResource InvalidEntryStyle}">
                         <xct:CharactersValidationBehavior
                             DecorationFlags="Trim"
                             MinimumCharacterCount="8"
@@ -100,27 +109,23 @@
                         />
                         <xct:CharactersValidationBehavior
                             DecorationFlags="Trim"
-                            RegexPattern=""
+                            RegexPattern="^[a-zA-Z0-9~`!@#$%^\u0026*()_\-+={[}\]|:;\u0027\u0022\u003c,\u003e.?/]+$"
                             xct:MultiValidationBehavior.Error="The value contains illegal character(s)."
                         />
                     </xct:MultiValidationBehavior>
-
                 </Entry.Behaviors>
-
             </Entry>
             <Entry Placeholder="Confirm Password" IsPassword="True" >
                 <Entry.Behaviors>
-                    <xct:MultiValidationBehavior>
+                    <xct:MultiValidationBehavior x:Name="PasswordConfirmValidation" IsValid="{Binding IsPasswordConfirmValid}" Errors="{Binding errorPasswordConfirm}" Flags="ForceMakeValidWhenFocused" InvalidStyle="{StaticResource InvalidEntryStyle}">
                         <xct:RequiredStringValidationBehavior
-                            Flags="ValidateOnValueChanging"
                             RequiredString="{Binding Source={x:Reference txtPassword}, Path=Text}"
-                            InvalidStyle="{StaticResource InvalidEntryStyle}"
                             xct:MultiValidationBehavior.Error="The passwords do not match."
                         />
                     </xct:MultiValidationBehavior>
                 </Entry.Behaviors>
             </Entry>
-            <Button Command="{Binding RegisterUser}" Text="Sign Up" BackgroundColor="#00a9e0" TextColor="#ffffff" Margin="0, 5, 0, 25" />
+            <Button Clicked="btnRegister_Clicked" Text="Sign Up" BackgroundColor="#00a9e0" TextColor="#ffffff" Margin="0, 5, 0, 25" />
             <Label Text="Already have an account? Login here" HorizontalOptions="Center" TextColor="#00a9e0" TextDecorations="Underline">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DisplayLogin}"/>
