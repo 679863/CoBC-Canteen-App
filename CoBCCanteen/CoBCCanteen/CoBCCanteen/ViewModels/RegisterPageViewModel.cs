@@ -272,8 +272,24 @@ namespace CoBCCanteen.ViewModels
                             {
                                 if (_isPasswordConfirmValid)
                                 {
-                                    Console.WriteLine($"{_firstname} {_lastname}\n{ _id }\n{ _email }\n{ UserService.HashPassword(_password) }");
-									await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+                                    try
+                                    {
+										await UserService.AddUser(_id, _email, _firstname, _lastname, UserService.HashPassword(_password));
+										await Shell.Current.DisplayAlert("Account Registered", "Your account has been successfully created!", "OK");
+										await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+									}
+                                    catch (ExistingID ex)
+                                    {
+										await Shell.Current.DisplayAlert("ID Already Exists", ex.Message, "OK");
+                                    }
+									catch (ExistingEmail ex)
+                                    {
+										await Shell.Current.DisplayAlert("Email Already Exists", ex.Message, "OK");
+									}
+									catch (Exception ex)
+                                    {
+										await Shell.Current.DisplayAlert("Unable To Connect To Server", "A connection to the server could not be established! Please try again.", "OK");
+									}
 								}
 								else
                                 {
