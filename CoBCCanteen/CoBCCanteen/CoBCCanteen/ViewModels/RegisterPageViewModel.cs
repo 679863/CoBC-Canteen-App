@@ -6,6 +6,7 @@ using Xamarin.CommunityToolkit;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Text;
+using CoBCCanteen.Services;
 
 namespace CoBCCanteen.ViewModels
 {
@@ -92,6 +93,7 @@ namespace CoBCCanteen.ViewModels
 			}
 		}
 
+		// Hash thi
 		private string _password;
 		public string Password
 		{
@@ -270,7 +272,7 @@ namespace CoBCCanteen.ViewModels
                             {
                                 if (_isPasswordConfirmValid)
                                 {
-                                    Console.WriteLine($"{_firstname} {_lastname}\n{ _id }\n{ _email }\n{ _password }");
+                                    Console.WriteLine($"{_firstname} {_lastname}\n{ _id }\n{ _email }\n{ UserService.HashPassword(_password) }");
 									await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
 								}
 								else
