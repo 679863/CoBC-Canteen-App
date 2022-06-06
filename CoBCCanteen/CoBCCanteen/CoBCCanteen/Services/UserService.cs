@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using CoBCCanteen.Models;
 using SQLite;
-using Xamarin.Essentials;
 
 namespace CoBCCanteen.Services
 {
@@ -16,66 +16,77 @@ namespace CoBCCanteen.Services
 
 		static async Task Init()
 		{
-            if (db != null)
-            {
-				return;
-            }
-            else
-            {
-				var path = Path.Combine(FileSystem.AppDataDirectory, "Database.db");
+			Console.WriteLine("INIT start");
+			string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Database.db");
+
+			if ((db == null) || !(File.Exists(path)))
+			{
+				Console.WriteLine("DB or File exists null");
 				db = new SQLiteAsyncConnection(path);
+				Console.WriteLine("created conn");
+			}
+
+            Console.WriteLine("Querying for table");
+			var tblExist = await db.ExecuteScalarAsync<string>("SELECT name FROM sqlite_master WHERE type='table' AND name='Users';");
+			if (tblExist == null)
+			{
+                Console.WriteLine("tbl no exist. creating table");
 				await db.CreateTableAsync<User>();
 
-				List<User> campuses = new List<User>();
-
-				var campusCollegeGreen = new User
+                Console.WriteLine("tbl created. creating pre users");
+				List<User> campuses = new List<User>()
 				{
-					Id = "000001",
-					Firstname = "College",
-					Lastname = "Green",
-					Email = "College.Green@cityofbristol.ac.uk",
-					IsAdmin = true,
-					Balance = 0,
-					Password = "f8265568950e7208b0d7cb502bab97c606ef3253fe581c28ada4326ebe3c2378"
+					new User()
+					{
+						Id = 000001,
+						Firstname = "College",
+						Lastname = "Green",
+						Email = "College.Green@cityofbristol.ac.uk",
+						IsAdmin = true,
+						Balance = 0,
+						Password = "f8265568950e7208b0d7cb502bab97c606ef3253fe581c28ada4326ebe3c2378"
+					},
+
+					new User()
+                    {
+						Id = 000002,
+						Firstname = "Ashley",
+						Lastname = "Down",
+						Email = "Ashley.Down@cityofbristol.ac.uk",
+						IsAdmin = true,
+						Balance = 0,
+						Password = "633c03e1cb12134905865a6bbd4027df5eae38f16bc35b53575ba73f5dc40969"
+					},
+
+					new User()
+                    {
+						Id = 000003,
+						Firstname = "SBSA",
+						Lastname = "SBSA",
+						Email = "SBSA@cityofbristol.ac.uk",
+						IsAdmin = true,
+						Balance = 0,
+						Password = "f38164fd8ea94233313d28e03af8d2556789aed0d30556705b65a6378204ead8"
+					}
 				};
 
-				campuses.Add(campusCollegeGreen);
-
-				var campusAshleyDown = new User
-				{
-					Id = "000002",
-					Firstname = "Ashley",
-					Lastname = "Down",
-					Email = "Ashley.Down@cityofbristol.ac.uk",
-					IsAdmin = true,
-					Balance = 0,
-					Password = "633c03e1cb12134905865a6bbd4027df5eae38f16bc35b53575ba73f5dc40969"
-				};
-
-				campuses.Add(campusAshleyDown);
-
-				var campusSBSA = new User
-				{
-					Id = "000003",
-					Firstname = "SBSA",
-					Lastname = "SBSA",
-					Email = "SBSA@cityofbristol.ac.uk",
-					IsAdmin = true,
-					Balance = 0,
-					Password = "f38164fd8ea94233313d28e03af8d2556789aed0d30556705b65a6378204ead8"
-				};
-
-				campuses.Add(campusSBSA);
-
+                Console.WriteLine("users created. adding users");
 				await db.InsertAllAsync(campuses);
-			}
+                Console.WriteLine("users added");
+            }
 		}
 
-		public static async Task AddUser(string id, string email, string firstname, string lastname, string password)
+		public static async Task AddUser(int id, string email, string firstname, string lastname, string password)
         {
-			await Init();
+			await DeleteDatabse();
+            Console.WriteLine("DB gone. Starting INIT");
 
-            if (IsUserExisting(id, email) == false)
+			await Init();
+            Console.WriteLine("Worked INIT");
+
+			bool isUserExisting = await (IsUserExisting(id, email));
+            Console.WriteLine(isUserExisting);
+            if (!isUserExisting)
             {
 				var newUser = new User
 				{
@@ -92,29 +103,43 @@ namespace CoBCCanteen.Services
 			}
         }
 
-		public static bool IsUserExisting(string id, string email)
+		public static async Task<bool> IsUserExisting(int id, string email)
         {
+            Console.WriteLine("Check user");
 			bool isExisting = true;
 
-			var checkID = db.Table<User>().Where(u => u.Id == id).FirstOrDefaultAsync();
-            if (checkID == null)
-            {
-				var checkEmail = db.Table<User>().Where(u => u.Email == email).FirstOrDefaultAsync();
-                if (checkEmail == null)
-                {
-					isExisting = false;
-                }
-                else
-                {
-					throw new ExistingEmail(email);
-                }
-            }
-            else
-            {
-				throw new ExistingID(id);
-            }
+            Console.WriteLine("Querying");
+			int countID = await db.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM Users WHERE Id = ?", id);
 
-			return isExisting;
+            Console.WriteLine(countID);
+    //        if (countID == null)
+    //        {
+				//var countEmail = await db.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM Users WHERE Email = ?", email);
+    //            if (countEmail == null)
+    //            {
+				//	isExisting = false;
+    //            }
+    //            else if (countEmail != null)
+    //            {
+				//	throw new ExistingEmail(email);
+				//}
+    //        }
+    //        else if (countID != null)
+    //        {
+    //            throw new ExistingID(id.ToString());
+    //        }
+
+            return isExisting;
+        }
+
+		public static async Task DeleteDatabse()
+        {
+            Console.WriteLine("Starting INIT");
+			await Init();
+            Console.WriteLine("Comp INIT. Dropping table");
+			await db.DropTableAsync<User>();
+            Console.WriteLine("Table dropped");
+			db = null;
         }
 
 		public static string HashPassword(string password)
