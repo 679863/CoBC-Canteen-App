@@ -6,19 +6,19 @@ namespace CoBCCanteen.Models
 	[Table("Users")]
 	public class User
 	{
-		[PrimaryKey, MaxLength(6), Column("Id")]
-		public int Id { get; set; }
-		[MaxLength(64), Column("Firstname")]
+		[PrimaryKey, MaxLength(6), Column("Id"), NotNull]
+		public string Id { get; set; }
+		[MaxLength(64), Column("Firstname"), NotNull]
 		public string Firstname { get; set; }
-		[MaxLength(64), Column("Lastname")]
+		[MaxLength(64), Column("Lastname"), NotNull]
 		public string Lastname { get; set; }
-		[MaxLength(254), Column("Email")]
+		[MaxLength(254), Column("Email"), NotNull]
 		public string Email { get; set; }
-		[Column("Admin")]
+		[Column("Admin"), NotNull]
 		public bool IsAdmin { get; set; }
-		[Column("Balance")]
+		[Column("Balance"), NotNull]
 		public int Balance { get; set; }
-		[MaxLength(64), Column("Password")]
+		[MaxLength(64), Column("Password"), NotNull]
 		public string Password { get; set; }
 	}
 }

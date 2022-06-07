@@ -16,29 +16,23 @@ namespace CoBCCanteen.Services
 
 		static async Task Init()
 		{
-			Console.WriteLine("INIT start");
 			string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Database.db");
 
 			if ((db == null) || !(File.Exists(path)))
 			{
-				Console.WriteLine("DB or File exists null");
 				db = new SQLiteAsyncConnection(path);
-				Console.WriteLine("created conn");
 			}
 
-            Console.WriteLine("Querying for table");
 			var tblExist = await db.ExecuteScalarAsync<string>("SELECT name FROM sqlite_master WHERE type='table' AND name='Users';");
 			if (tblExist == null)
 			{
-                Console.WriteLine("tbl no exist. creating table");
 				await db.CreateTableAsync<User>();
 
-                Console.WriteLine("tbl created. creating pre users");
 				List<User> campuses = new List<User>()
 				{
 					new User()
 					{
-						Id = 000001,
+						Id = "000001",
 						Firstname = "College",
 						Lastname = "Green",
 						Email = "College.Green@cityofbristol.ac.uk",
@@ -49,7 +43,7 @@ namespace CoBCCanteen.Services
 
 					new User()
                     {
-						Id = 000002,
+						Id = "000002",
 						Firstname = "Ashley",
 						Lastname = "Down",
 						Email = "Ashley.Down@cityofbristol.ac.uk",
@@ -60,7 +54,7 @@ namespace CoBCCanteen.Services
 
 					new User()
                     {
-						Id = 000003,
+						Id = "000003",
 						Firstname = "SBSA",
 						Lastname = "SBSA",
 						Email = "SBSA@cityofbristol.ac.uk",
@@ -70,22 +64,16 @@ namespace CoBCCanteen.Services
 					}
 				};
 
-                Console.WriteLine("users created. adding users");
 				await db.InsertAllAsync(campuses);
-                Console.WriteLine("users added");
             }
 		}
 
-		public static async Task AddUser(int id, string email, string firstname, string lastname, string password)
+		public static async Task AddUser(string id, string email, string firstname, string lastname, string password)
         {
-			await DeleteDatabse();
-            Console.WriteLine("DB gone. Starting INIT");
-
+			//await DeleteDatabse();
 			await Init();
-            Console.WriteLine("Worked INIT");
 
-			bool isUserExisting = await (IsUserExisting(id, email));
-            Console.WriteLine(isUserExisting);
+            bool isUserExisting = await (IsUserExisting(id, email));
             if (!isUserExisting)
             {
 				var newUser = new User
@@ -103,42 +91,35 @@ namespace CoBCCanteen.Services
 			}
         }
 
-		public static async Task<bool> IsUserExisting(int id, string email)
+		public static async Task<bool> IsUserExisting(string id, string email)
         {
-            Console.WriteLine("Check user");
 			bool isExisting = true;
+			var countID = await db.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM Users WHERE Id = ?", id);
+			var countEmail = await db.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM Users WHERE Email = ?", email);
 
-            Console.WriteLine("Querying");
-			int countID = await db.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM Users WHERE Id = ?", id);
+            if (countID == 0)
+            {
+                if (countEmail == 0)
+                {
+					isExisting = false;
+                }
+                else if (countEmail != 0)
+                {
+					throw new ExistingEmail(email);
+                }
+            }
+            else if (countID != 0)
+            {
+				throw new ExistingID(id);
+            }
 
-            Console.WriteLine(countID);
-    //        if (countID == null)
-    //        {
-				//var countEmail = await db.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM Users WHERE Email = ?", email);
-    //            if (countEmail == null)
-    //            {
-				//	isExisting = false;
-    //            }
-    //            else if (countEmail != null)
-    //            {
-				//	throw new ExistingEmail(email);
-				//}
-    //        }
-    //        else if (countID != null)
-    //        {
-    //            throw new ExistingID(id.ToString());
-    //        }
-
-            return isExisting;
+			return isExisting;
         }
 
 		public static async Task DeleteDatabse()
         {
-            Console.WriteLine("Starting INIT");
 			await Init();
-            Console.WriteLine("Comp INIT. Dropping table");
 			await db.DropTableAsync<User>();
-            Console.WriteLine("Table dropped");
 			db = null;
         }
 

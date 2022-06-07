@@ -8,6 +8,10 @@ using System.Collections.Generic;
 using System.Text;
 using CoBCCanteen.Services;
 
+// ToDO.
+// > Change the displaying of alerts to a way that adheres to MVVM principles.
+// > Change Id field in User.cs to int. (note parsing may change 000001 to 1).
+
 namespace CoBCCanteen.ViewModels
 {
 	public class RegisterPageViewModel : BindableObject
@@ -256,7 +260,6 @@ namespace CoBCCanteen.ViewModels
 			}
 		}
 
-		// Change the displaying of alerts to a way that adheres to MVVM principles.
 		async Task OnRegister()
 		{
 			StringBuilder sb = new StringBuilder();
@@ -273,28 +276,25 @@ namespace CoBCCanteen.ViewModels
                             {
                                 if (_isPasswordConfirmValid)
                                 {
-									await UserService.AddUser(int.Parse(_id), _email, _firstname, _lastname, UserService.HashPassword(_password));
-
-
-									//try
-         //                           {
-									//	await UserService.AddUser(_id, _email, _firstname, _lastname, UserService.HashPassword(_password));
-									//	await Shell.Current.DisplayAlert("Account Registered", "Your account has been successfully created!", "OK");
-									//	await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
-									//}
-         //                           catch (ExistingID ex)
-         //                           {
-									//	await Shell.Current.DisplayAlert("ID Already Exists", ex.Message, "OK");
-         //                           }
-									//catch (ExistingEmail ex)
-         //                           {
-									//	await Shell.Current.DisplayAlert("Email Already Exists", ex.Message, "OK");
-									//}
-									//catch (Exception ex)
-         //                           {
-									//	await Shell.Current.DisplayAlert("Unable To Connect To Server", "A connection to the server could not be established! Please try again.", "OK");
-									//}
-								}
+                                    try
+                                    {
+                                        await UserService.AddUser(_id, _email, _firstname, _lastname, UserService.HashPassword(_password));
+                                        await Shell.Current.DisplayAlert("Account Registered", "Your account has been successfully created!", "OK");
+                                        await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+                                    }
+                                    catch (ExistingID ex)
+                                    {
+                                        await Shell.Current.DisplayAlert("ID Already Exists", ex.Message, "OK");
+                                    }
+                                    catch (ExistingEmail ex)
+                                    {
+                                        await Shell.Current.DisplayAlert("Email Already Exists", ex.Message, "OK");
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        await Shell.Current.DisplayAlert("Error", "An unknown error has occured! Please try again.", "OK");
+                                    }
+                                }
 								else
                                 {
 									sb.Clear();
