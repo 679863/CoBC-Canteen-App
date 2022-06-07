@@ -16,8 +16,8 @@
         <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="40" >
             <Image Source="HeaderCoBC" HorizontalOptions="Center" HeightRequest="75" />
             <Label Text="Canteen Ordering App" FontSize="28" HorizontalOptions="Center" Margin="0, 25, 0, 10" />
-            <Entry x:Name="txtID" Placeholder="Student ID" Keyboard="Numeric" />
-            <Entry x:Name="txtPassword" Placeholder="Password" IsPassword="True" />
+            <Entry x:Name="txtID" Text="{Binding ID}" Placeholder="Student ID" Keyboard="Numeric" />
+            <Entry x:Name="txtPassword" Text="{Binding Password}" Placeholder="Password" IsPassword="True" />
             <Button Command="{Binding LoginUser}" Text="Login" BackgroundColor="#00a9e0" TextColor="#ffffff" Margin="0, 5, 0, 25" />
             <Label Text="Don't have an account? Register here" HorizontalOptions="Center" TextColor="#00a9e0" TextDecorations="Underline">
                 <Label.GestureRecognizers>
