@@ -2,6 +2,8 @@
 using System.Windows.Input;
 using CoBCCanteen.Views;
 using Xamarin.Forms;
+using CoBCCanteen.Services;
+using CoBCCanteen.Models;
 
 namespace CoBCCanteen.ViewModels
 {
@@ -54,7 +56,15 @@ namespace CoBCCanteen.ViewModels
 
 		async void OnLogin()
         {
-			await Shell.Current.GoToAsync($"//{ nameof(OrderPage) }");
+            try
+            {
+                User activeUser = await UserService.Login(_id, UserService.HashPassword(_password));
+                await Shell.Current.GoToAsync($"//{ nameof(OrderPage) }");
+            }
+            catch (Exception)
+            {
+                await Shell.Current.DisplayAlert("Invalid Credentials", "The entered credentials do not match an existing user! Please try again.", "OK");
+            }
 		}
 
 		async void GoToRegister()

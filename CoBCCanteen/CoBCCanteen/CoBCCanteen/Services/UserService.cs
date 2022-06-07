@@ -116,6 +116,11 @@ namespace CoBCCanteen.Services
 			return isExisting;
         }
 
+		public static Task<User> Login(string id, string password)
+        {
+			return db.Table<User>().Where(x => (x.Id == id) && (x.Password == password)).FirstOrDefaultAsync();
+        }
+
 		public static async Task DeleteDatabse()
         {
 			await Init();
