@@ -1,12 +1,12 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using CoBCCanteen.Models;
 
 namespace CoBCCanteen
 {
     public partial class App : Application
     {
-
         public App ()
         {
             InitializeComponent();

@@ -38,7 +38,7 @@ namespace CoBCCanteen.Services
 						Email = "College.Green@cityofbristol.ac.uk",
 						IsAdmin = true,
 						Balance = 0,
-						Password = "f8265568950e7208b0d7cb502bab97c606ef3253fe581c28ada4326ebe3c2378"
+						Password = "f8265568950e7208b0d7cb502bab97c606ef3253fe581c28ada4326ebe3c2378".ToUpper()
 					},
 
 					new User()
@@ -49,7 +49,7 @@ namespace CoBCCanteen.Services
 						Email = "Ashley.Down@cityofbristol.ac.uk",
 						IsAdmin = true,
 						Balance = 0,
-						Password = "633c03e1cb12134905865a6bbd4027df5eae38f16bc35b53575ba73f5dc40969"
+						Password = "633c03e1cb12134905865a6bbd4027df5eae38f16bc35b53575ba73f5dc40969".ToUpper()
 					},
 
 					new User()
@@ -60,7 +60,7 @@ namespace CoBCCanteen.Services
 						Email = "SBSA@cityofbristol.ac.uk",
 						IsAdmin = true,
 						Balance = 0,
-						Password = "f38164fd8ea94233313d28e03af8d2556789aed0d30556705b65a6378204ead8"
+						Password = "f38164fd8ea94233313d28e03af8d2556789aed0d30556705b65a6378204ead8".ToUpper()
 					}
 				};
 
@@ -116,9 +116,11 @@ namespace CoBCCanteen.Services
 			return isExisting;
         }
 
-		public static Task<User> Login(string id, string password)
+		public static async Task<User> Login(string id, string password)
         {
-			return db.Table<User>().Where(x => (x.Id == id) && (x.Password == password)).FirstOrDefaultAsync();
+			await Init();
+			User user = await db.Table<User>().Where(x => (x.Id == id) && (x.Password == password)).FirstOrDefaultAsync();
+			return user;
         }
 
 		public static async Task DeleteDatabse()
