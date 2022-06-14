@@ -56,14 +56,29 @@ namespace CoBCCanteen.ViewModels
 
 		async void OnLogin()
         {
-            try
+            if ((_id == null) | (_password == null))
             {
-                User activeUser = await UserService.Login(_id, UserService.HashPassword(_password));
-                await Shell.Current.GoToAsync($"//{ nameof(OrderPage) }");
+                await Shell.Current.DisplayAlert("Invalid Credentials", "No credentials have been entered! Please try again.", "OK");
             }
-            catch (Exception)
+            else
             {
-                await Shell.Current.DisplayAlert("Invalid Credentials", "The entered credentials do not match an existing user! Please try again.", "OK");
+                try
+                {
+                    User activeUser = await UserService.Login(_id, UserService.HashPassword(_password));
+                    if (activeUser != null)
+                    {
+                        await Shell.Current.GoToAsync($"//{ nameof(OrderPage) }?id={ activeUser.Id.ToString() }");
+                    }
+                    else
+                    {
+                        await Shell.Current.DisplayAlert("Invalid Credentials", "No existing user matches the entered credentials! Please try again.", "OK");
+                    }
+
+                }
+                catch (Exception)
+                {
+                    await Shell.Current.DisplayAlert("Unable To Connect To The Server", "A connection to the server could not be established! Please try again.", "OK");
+                }
             }
 		}
 

@@ -1,14 +1,20 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:CoBCCanteen.ViewModels"
+    x:DataType="viewmodels:OrderPageViewModel"
     x:Class="CoBCCanteen.Views.OrderPage">
+    <ContentPage.BindingContext>
+        <viewmodels:OrderPageViewModel/>
+    </ContentPage.BindingContext>
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Logout" Clicked="ToolbarItem_Clicked"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-            <Label Text="Logged In!"/>
+            <Label Text="Logged In"/>
+            <Button Text="Test" Command="{Binding RunTest}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

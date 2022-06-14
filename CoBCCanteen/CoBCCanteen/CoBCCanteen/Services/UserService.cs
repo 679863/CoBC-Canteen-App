@@ -123,6 +123,11 @@ namespace CoBCCanteen.Services
 			return user;
         }
 
+		public static Task<User> GetUserByID(string id)
+        {
+			return db.Table<User>().Where(x => x.Id == id).FirstOrDefaultAsync();
+        }
+
 		public static async Task DeleteDatabse()
         {
 			await Init();
