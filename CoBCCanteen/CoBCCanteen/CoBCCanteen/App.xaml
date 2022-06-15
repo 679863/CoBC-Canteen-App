@@ -25,6 +25,11 @@
             <Setter Property="TextColor" Value="{StaticResource PrimaryWhite}"/>
         </Style>
 
+        <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{StaticResource SecondaryPink}"/>
+            <Setter Property="TextColor" Value="{StaticResource PrimaryWhite}"/>
+        </Style>
+
         <Style x:Key="PrimaryLabelLinkStyle" TargetType="Label">
             <Setter Property="TextColor" Value="{StaticResource PrimaryBlue}"/>
             <Setter Property="TextDecorations" Value="Underline"/>

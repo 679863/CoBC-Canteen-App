@@ -12,12 +12,13 @@ namespace CoBCCanteen.ViewModels
 {
     class OrderPageViewModel : BindableObject
     {
-        User activeUser = (App.Current as CoBCCanteen.App).ActiveUser;
+        public User activeUser { get; set; }
 
         public ICommand RunTest { get; }
 
         public OrderPageViewModel()
         {
+            activeUser = (App.Current as CoBCCanteen.App).ActiveUser;
             RunTest = new Command(async() => await TestPass());
         }
 

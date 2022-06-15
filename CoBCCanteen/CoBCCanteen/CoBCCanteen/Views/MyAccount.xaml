@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:CoBCCanteen.ViewModels"
+    x:DataType="viewmodels:MyAccountViewModel"
+    x:Class="CoBCCanteen.Views.MyAccount"
+    Title="My Account">
+    <ContentPage.BindingContext>
+        <viewmodels:MyAccountViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="40">
+            <Label Text="{Binding DisplayFullname}"/>
+            <Label Text="{Binding DisplayID}"/>
+            <Label Text="{Binding DisplayEmail}"/>
+            <Label Text="{Binding DisplayBalance}"/>
+            <Button Text="Logout" Command="{Binding LogoutUser}" Style="SecondaryButtonStyle" Margin="0, 50, 0, 0"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
+

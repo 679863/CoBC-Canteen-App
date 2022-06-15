@@ -5,9 +5,9 @@ using Xamarin.Forms;
 
 namespace CoBCCanteen.Views
 {	
-	public partial class UserAccount : ContentPage
+	public partial class MyAccount : ContentPage
 	{	
-		public UserAccount ()
+		public MyAccount ()
 		{
 			InitializeComponent ();
 		}
