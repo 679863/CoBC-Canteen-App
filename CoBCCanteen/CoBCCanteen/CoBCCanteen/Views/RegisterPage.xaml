@@ -125,8 +125,8 @@
                     </xct:MultiValidationBehavior>
                 </Entry.Behaviors>
             </Entry>
-            <Button Clicked="btnRegister_Clicked" Text="Sign Up" BackgroundColor="#00a9e0" TextColor="#ffffff" Margin="0, 5, 0, 25" />
-            <Label Text="Already have an account? Login here" HorizontalOptions="Center" TextColor="#00a9e0" TextDecorations="Underline">
+            <Button Clicked="btnRegister_Clicked" Text="Sign Up" Style="{StaticResource PrimaryButtonStyle}" Margin="0, 5, 0, 25" />
+            <Label Text="Already have an account? Login here" Style="{StaticResource PrimaryLabelLinkStyle}">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DisplayLogin}"/>
                 </Label.GestureRecognizers>

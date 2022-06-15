@@ -5,7 +5,7 @@
     xmlns:viewmodels="clr-namespace:CoBCCanteen.ViewModels"
     x:Class="CoBCCanteen.Views.LoginPage"
     x:DataType="viewmodels:LoginPageViewModel"
-    BackgroundColor="#ffffff"
+    BackgroundColor="White"
     Shell.NavBarIsVisible="False"
     Shell.TabBarIsVisible="False"
     Shell.FlyoutBehavior="Disabled">
@@ -18,8 +18,8 @@
             <Label Text="Canteen Ordering App" FontSize="28" HorizontalOptions="Center" Margin="0, 25, 0, 10" />
             <Entry x:Name="txtID" Text="{Binding ID}" Placeholder="Student ID" Keyboard="Numeric" />
             <Entry x:Name="txtPassword" Text="{Binding Password}" Placeholder="Password" IsPassword="True" />
-            <Button Command="{Binding LoginUser}" Text="Login" BackgroundColor="#00a9e0" TextColor="#ffffff" Margin="0, 5, 0, 25" />
-            <Label Text="Don't have an account? Register here" HorizontalOptions="Center" TextColor="#00a9e0" TextDecorations="Underline">
+            <Button Command="{Binding LoginUser}" Text="Login" Style="{StaticResource PrimaryButtonStyle}" Margin="0, 5, 0, 25" />
+            <Label Text="Don't have an account? Register here" Style="{StaticResource PrimaryLabelLinkStyle}">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DisplayRegister}"/>
                 </Label.GestureRecognizers>

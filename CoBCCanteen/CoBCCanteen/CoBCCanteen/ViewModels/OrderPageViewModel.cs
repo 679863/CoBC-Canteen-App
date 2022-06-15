@@ -10,18 +10,9 @@ using System.Windows.Input;
 
 namespace CoBCCanteen.ViewModels
 {
-    [QueryProperty("UserID", "id")]
     class OrderPageViewModel : BindableObject
     {
-        private string _userID;
-        public string UserID
-        {
-            get => _userID;
-            set
-            {
-                _userID = value;
-            }
-        }
+        User activeUser = (App.Current as CoBCCanteen.App).ActiveUser;
 
         public ICommand RunTest { get; }
 
@@ -32,7 +23,6 @@ namespace CoBCCanteen.ViewModels
 
         async Task TestPass()
         {
-            User activeUser = await UserService.GetUserByID(_userID);
             await Shell.Current.DisplayAlert($"{activeUser.Firstname} {activeUser.Lastname}", $"{activeUser.Id} {activeUser.Email} {activeUser.IsAdmin} {activeUser.Balance} {activeUser.Password}", "OK");
         }
     }

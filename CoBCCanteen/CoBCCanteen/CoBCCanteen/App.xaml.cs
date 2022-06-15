@@ -5,8 +5,11 @@ using CoBCCanteen.Models;
 
 namespace CoBCCanteen
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class App : Application
     {
+        public User ActiveUser { get; set; }
+
         public App ()
         {
             InitializeComponent();

@@ -5,14 +5,15 @@
     xmlns:viewmodels="clr-namespace:CoBCCanteen.ViewModels"
     xmlns:fa="clr-namespace:FontAwesome"
     x:DataType="viewmodels:OrderPageViewModel"
-    x:Class="CoBCCanteen.Views.OrderPage">
+    x:Class="CoBCCanteen.Views.OrderPage"
+    Title="Order">
     <ContentPage.BindingContext>
         <viewmodels:OrderPageViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.ToolbarItems>
         <ToolbarItem>
             <ToolbarItem.IconImageSource>
-                <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:FontAwesomeIcons.CartShopping}"/>
+                <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:FontAwesomeIcons.BasketShopping}"/>
             </ToolbarItem.IconImageSource>
 
         </ToolbarItem>
