@@ -32,7 +32,8 @@ namespace CoBCCanteen.ViewModels
 
         async Task TestPass()
         {
-            //await Shell.Current.DisplayAlert($"{_activeUser.Firstname} {_activeUser.Lastname}", $"{_activeUser.Id} {_activeUser.Email} {_activeUser.IsAdmin} {_activeUser.Balance}", "OK");
+            User activeUser = await UserService.GetUserByID(_userID);
+            await Shell.Current.DisplayAlert($"{activeUser.Firstname} {activeUser.Lastname}", $"{activeUser.Id} {activeUser.Email} {activeUser.IsAdmin} {activeUser.Balance} {activeUser.Password}", "OK");
         }
     }
 }

@@ -18,10 +18,20 @@
     <None Remove="Views\" />
     <None Remove="Xamarin.CommunityToolkit" />
     <None Remove="sqlite-net-pcl" />
+    <None Remove="Fonts\" />
+    <None Remove="Fonts\FontAwesomeBrands.otf" />
+    <None Remove="Fonts\FontAwesomeRegular.otf" />
+    <None Remove="Fonts\FontAwesomeSolid.otf" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
+    <Folder Include="FontAwesome.otf\" />
     <Folder Include="Services\" />
     <Folder Include="Views\" />
+    <Folder Include="Fonts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fonts\FontAwesomeBrands.otf" />
+    <EmbeddedResource Include="Fonts\FontAwesomeRegular.otf" />
+    <EmbeddedResource Include="Fonts\FontAwesomeSolid.otf" />
   </ItemGroup>
 </Project>

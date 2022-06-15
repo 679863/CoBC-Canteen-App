@@ -67,7 +67,7 @@ namespace CoBCCanteen.ViewModels
                     User activeUser = await UserService.Login(_id, UserService.HashPassword(_password));
                     if (activeUser != null)
                     {
-                        await Shell.Current.GoToAsync($"//{ nameof(OrderPage) }?id={ activeUser.Id.ToString() }");
+                        await Shell.Current.GoToAsync($"//main?id={ activeUser.Id.ToString() }");
                     }
                     else
                     {

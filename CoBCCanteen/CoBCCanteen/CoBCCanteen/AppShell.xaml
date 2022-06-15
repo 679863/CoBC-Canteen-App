@@ -10,9 +10,12 @@
         <ShellContent ContentTemplate="{DataTemplate local:LoginPage}"/>
     </ShellItem>
 
-    <FlyoutItem Title="Order">
-        <ShellContent ContentTemplate="{DataTemplate local:OrderPage}" Route="OrderPage"/>
-    </FlyoutItem>
+    <TabBar Route="main">
+        <Tab Title="Order">
+            <ShellContent ContentTemplate="{DataTemplate local:OrderPage}"/>
+        </Tab>
+
+    </TabBar>
 
     <Shell.Resources>
         <ResourceDictionary>
