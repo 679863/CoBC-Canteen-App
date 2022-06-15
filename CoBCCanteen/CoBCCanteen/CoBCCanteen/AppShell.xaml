@@ -2,20 +2,9 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:CoBCCanteen.Views"
+       xmlns:fa="clr-namespace:FontAwesome"
        Title="CoBCCanteen"
        x:Class="CoBCCanteen.AppShell">
-
-
-    <ShellItem Route="LoginPage" FlyoutItemIsVisible="False">
-        <ShellContent ContentTemplate="{DataTemplate local:LoginPage}"/>
-    </ShellItem>
-
-    <TabBar Route="main">
-        <Tab Title="Order">
-            <ShellContent ContentTemplate="{DataTemplate local:OrderPage}"/>
-        </Tab>
-
-    </TabBar>
 
     <Shell.Resources>
         <ResourceDictionary>
@@ -33,6 +22,26 @@
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
         </ResourceDictionary>
-    </Shell.Resources>
+    </Shell.Resources>        
+
+
+    <ShellItem Route="LoginPage" FlyoutItemIsVisible="False">
+        <ShellContent ContentTemplate="{DataTemplate local:LoginPage}"/>
+    </ShellItem>
+
+    <TabBar>
+        <ShellContent Title="Order" Route="OrderPage" ContentTemplate="{DataTemplate local:OrderPage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:FontAwesomeIcons.Burger}"/>
+            </ShellContent.Icon>
+        </ShellContent>
+        <ShellContent Title="Settings" Route="UserAccount" ContentTemplate="{DataTemplate local:UserAccount}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:FontAwesomeIcons.User}"/>
+            </ShellContent.Icon>
+        </ShellContent>
+    </TabBar>
+
+    
 </Shell>
 
