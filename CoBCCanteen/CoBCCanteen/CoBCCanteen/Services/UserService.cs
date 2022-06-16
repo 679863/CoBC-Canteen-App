@@ -130,6 +130,7 @@ namespace CoBCCanteen.Services
 
 		public static async Task<User> Login(string id, string password)
         {
+			//await DeleteDatabse();
 			await Init();
 			User user = await db.Table<User>().Where(x => (x.Id == id) && (x.Password == password)).FirstOrDefaultAsync();
 			return user;

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:CoBCCanteen.ViewModels"
+    x:DataType="viewmodels:TopupPageViewModel"
+    x:Class="CoBCCanteen.Views.TopupPage">
+    <ContentPage.BindingContext>
+        <viewmodels:TopupPageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+            <Label Text="{Binding DisplayBalance}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
+

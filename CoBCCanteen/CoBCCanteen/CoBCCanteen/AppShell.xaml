@@ -38,6 +38,12 @@
                 <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:FontAwesomeIcons.Burger}"/>
             </ShellContent.Icon>
         </ShellContent>
+        <ShellContent Title="Topup" Route="TopupPage" ContentTemplate="{DataTemplate local:TopupPage}">
+            <ShellContent.Icon>
+                <!--> Makes use of font awesome icons. Uses FontAwesome.cs to look up icons. <!-->
+                <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:FontAwesomeIcons.CreditCard}"/>
+            </ShellContent.Icon>
+        </ShellContent>
         <ShellContent Title="My Account" Route="UserAccount" ContentTemplate="{DataTemplate local:MyAccount}">
             <ShellContent.Icon>
                 <!--> Makes use of font awesome icons. Uses FontAwesome.cs to look up icons. <!-->
