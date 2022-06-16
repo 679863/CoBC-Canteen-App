@@ -2,24 +2,20 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:CoBCCanteen.Views"
+       xmlns:fa="clr-namespace:FontAwesome"
        Title="CoBCCanteen"
        x:Class="CoBCCanteen.AppShell">
 
-    <!--
-        The overall app visual hierarchy is defined here, along with navigation.
-    
-        https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
-    -->
-
+    <!-- Tabbar and toolbar styling. -->
     <Shell.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
-                <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource PrimaryBlue}" />
                 <Setter Property="Shell.ForegroundColor" Value="White" />
                 <Setter Property="Shell.TitleColor" Value="White" />
                 <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
                 <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
-                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource PrimaryBlue}" />
                 <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
                 <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
                 <Setter Property="Shell.TabBarTitleColor" Value="White"/>
@@ -27,10 +23,29 @@
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
         </ResourceDictionary>
-    </Shell.Resources>
+    </Shell.Resources>        
 
+    <!-- Navigatable pages that are not in the tabbar. -->
+    <ShellItem Route="LoginPage" FlyoutItemIsVisible="False">
+        <ShellContent ContentTemplate="{DataTemplate local:LoginPage}"/>
+    </ShellItem>
+
+    <!-- Tabbar navigation options. -->
     <TabBar>
-        <ShellContent Title="About" Icon="icon_about.png" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
+        <ShellContent Title="Order" Route="OrderPage" ContentTemplate="{DataTemplate local:OrderPage}">
+            <ShellContent.Icon>
+                <!--> Makes use of font awesome icons. Uses FontAwesome.cs to look up icons. <!-->
+                <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:FontAwesomeIcons.Burger}"/>
+            </ShellContent.Icon>
+        </ShellContent>
+        <ShellContent Title="My Account" Route="UserAccount" ContentTemplate="{DataTemplate local:MyAccount}">
+            <ShellContent.Icon>
+                <!--> Makes use of font awesome icons. Uses FontAwesome.cs to look up icons. <!-->
+                <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:FontAwesomeIcons.User}"/>
+            </ShellContent.Icon>
+        </ShellContent>
     </TabBar>
+
+    
 </Shell>
 

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:CoBCCanteen.ViewModels"
+    xmlns:fa="clr-namespace:FontAwesome"
+    x:DataType="viewmodels:OrderPageViewModel"
+    x:Class="CoBCCanteen.Views.OrderPage"
+    Title="Order">
+    <ContentPage.BindingContext>
+        <viewmodels:OrderPageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem>
+            <ToolbarItem.IconImageSource>
+                <!--> Makes use of font awesome icons. Uses FontAwesome.cs to look up icons. <!-->
+                <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:FontAwesomeIcons.BasketShopping}"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
+

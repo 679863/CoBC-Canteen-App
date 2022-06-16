@@ -1,11 +1,26 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using CoBCCanteen.Models;
 
 namespace CoBCCanteen
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class App : Application
     {
+        // Keeps track of the logged in user. Accessible from all viewmodels.
+        private User _activeUser;
+        public User ActiveUser
+        {
+            get => _activeUser;
+            set
+            {
+                if (_activeUser != value)
+                {
+                    _activeUser = value;
+                }
+            }
+        }
 
         public App ()
         {

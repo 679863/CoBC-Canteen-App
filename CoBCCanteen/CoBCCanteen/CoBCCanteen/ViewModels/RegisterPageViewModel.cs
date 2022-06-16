@@ -1,0 +1,471 @@
+﻿using System;
+using System.Windows.Input;
+using Xamarin.Forms;
+using CoBCCanteen.Views;
+using Xamarin.CommunityToolkit;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Text;
+using CoBCCanteen.Services;
+
+
+namespace CoBCCanteen.ViewModels
+{
+	public class RegisterPageViewModel : BindableObject
+	{
+		// For entry binding.
+		private string _firstname;
+		public string Firstname
+		{
+			get => _firstname;
+			set
+			{
+				if (value == _firstname)
+				{
+					return;
+				}
+				else
+				{
+					_firstname = value;
+					OnPropertyChanged();
+				}
+			}
+		}
+
+		private string _lastname;
+		public string Lastname
+		{
+			get => _lastname;
+			set
+			{
+				if (value == _lastname)
+				{
+					return;
+				}
+				else
+				{
+					_lastname = value;
+					OnPropertyChanged();
+				}
+			}
+		}
+
+		private string _id;
+		public string ID
+		{
+			get => _id;
+			set
+			{
+				if (value == _id)
+				{
+					return;
+				}
+				else
+				{
+					_id = value;
+					OnPropertyChanged();
+				}
+			}
+		}
+
+		private string _email;
+		public string Email
+		{
+			get => _email;
+			set
+			{
+				if (value == _email)
+				{
+					return;
+				}
+				else
+				{
+					_email = value;
+					OnPropertyChanged();
+				}
+			}
+		}
+
+		private string _password;
+		public string Password
+		{
+			get => _password;
+			set
+			{
+				if (value == _password)
+				{
+					return;
+				}
+				else
+				{
+					_password = value;
+					OnPropertyChanged();
+				}
+			}
+		}
+
+		// For validation binding. Bulk of validation done in RegisterPage.xaml using Xamarin Community Toolkit.
+		private bool _isFirstnameValid;
+		public bool IsFirstnameValid
+		{
+			get => _isFirstnameValid;
+			set
+			{
+				_isFirstnameValid = value;
+				OnPropertyChanged();
+			}
+		}
+
+		private bool _isLastnameValid;
+		public bool IsLastnameValid
+		{
+			get => _isLastnameValid;
+			set
+			{
+				_isLastnameValid = value;
+				OnPropertyChanged();
+			}
+		}
+
+		private bool _isIDValid;
+		public bool IsIDValid
+		{
+			get => _isIDValid;
+			set
+			{
+				_isIDValid = value;
+				OnPropertyChanged();
+			}
+		}
+
+		private bool _isEmailValid;
+		public bool IsEmailValid
+		{
+			get => _isEmailValid;
+			set
+			{
+				_isEmailValid = value;
+				OnPropertyChanged();
+			}
+		}
+
+		private bool _isPasswordValid;
+		public bool IsPasswordValid
+		{
+			get => _isPasswordValid;
+			set
+			{
+				_isPasswordValid = value;
+				OnPropertyChanged();
+			}
+		}
+
+		private bool _isPasswordConfirmValid;
+		public bool IsPasswordConfirmValid
+		{
+			get => _isPasswordConfirmValid;
+			set
+			{
+				_isPasswordConfirmValid = value;
+				OnPropertyChanged();
+			}
+		}
+
+		// For error binding. Feature of MultiValidationBehavior in Xamarin Community Toolkit's Validation Behaviors.
+		private List<object> _errorFirstname;
+		public List<object> errorFirstname
+		{
+			get => _errorFirstname;
+			set
+			{
+				if (value != null)
+				{
+					_errorFirstname = value;
+				}
+			}
+		}
+
+		private List<object> _errorLastname;
+		public List<object> errorLastname
+		{
+			get => _errorLastname;
+			set
+			{
+				if (value != null)
+				{
+					_errorLastname = value;
+				}
+			}
+		}
+
+		private List<object> _errorID;
+		public List<object> errorID
+		{
+			get => _errorID;
+			set
+			{
+				if (value != null)
+				{
+					_errorID = value;
+				}
+			}
+		}
+
+		private List<object> _errorEmail;
+		public List<object> errorEmail
+		{
+			get => _errorEmail;
+			set
+			{
+				if (value != null)
+				{
+					_errorEmail = value;
+				}
+			}
+		}
+
+		private List<object> _errorPassword;
+		public List<object> errorPassword
+		{
+			get => _errorPassword;
+			set
+			{
+				if (value != null)
+				{
+					_errorPassword = value;
+				}
+			}
+		}
+
+		private List<object> _errorPasswordConfirm;
+		public List<object> errorPasswordConfirm
+		{
+			get => _errorPasswordConfirm;
+			set
+			{
+				if (value != null)
+				{
+					_errorPasswordConfirm = value;
+				}
+			}
+		}
+
+		// For button binding.
+		public ICommand RegisterUser { get; }
+		public ICommand DisplayLogin { get; }
+
+		public RegisterPageViewModel()
+		{
+			RegisterUser = new Command(async() => await OnRegister());
+			DisplayLogin = new Command(async() => await GoToLogin());
+		}
+
+		// Determins whether the user's input is valid. If not an alert is displayed.
+		// Are the alerts breaking the MVVM principle?
+		async Task<bool> ValidateFirstname()
+        {
+			bool valid = false;
+			StringBuilder sb = new StringBuilder();
+
+			if (_isFirstnameValid)
+            {
+				valid = true;
+            }
+            else
+            {
+				valid = false;
+				sb.Clear();
+
+				foreach (var error in _errorFirstname)
+				{
+					if (error is string)
+					{
+						sb.Append(((string)error).ToString() + " ");
+					}
+				}
+
+				await Shell.Current.DisplayAlert("Invalid Firstname", $"The entered firstname is invalid! {sb.ToString()}Please try again.", "OK");
+			}
+
+			return valid;
+        }
+
+		async Task<bool> ValidateLastname()
+		{
+			bool valid = false;
+			StringBuilder sb = new StringBuilder();
+
+			if (_isLastnameValid)
+			{
+				valid = true;
+			}
+			else
+			{
+				valid = false;
+				sb.Clear();
+
+				foreach (var error in _errorLastname)
+				{
+					if (error is string)
+					{
+						sb.Append(((string)error).ToString() + " ");
+					}
+				}
+
+				await Shell.Current.DisplayAlert("Invalid Lastname", $"The entered lastname is invalid! {sb.ToString()}Please try again.", "OK");
+			}
+
+			return valid;
+		}
+
+		async Task<bool> ValidateID()
+		{
+			bool valid = false;
+			StringBuilder sb = new StringBuilder();
+
+			if (_isIDValid)
+			{
+				valid = true;
+			}
+			else
+			{
+				valid = false;
+				sb.Clear();
+
+				foreach (var error in _errorID)
+				{
+					if (error is string)
+					{
+						sb.Append(((string)error).ToString() + " ");
+					}
+				}
+
+				await Shell.Current.DisplayAlert("Invalid Student ID", $"The entered ID is invalid! {sb.ToString()}Please try again.", "OK");
+			}
+
+			return valid;
+		}
+
+		async Task<bool> ValidateEmail()
+		{
+			bool valid = false;
+			StringBuilder sb = new StringBuilder();
+
+			if (_isEmailValid)
+			{
+				valid = true;
+			}
+			else
+			{
+				valid = false;
+				sb.Clear();
+
+				foreach (var error in _errorEmail)
+				{
+					if (error is string)
+					{
+						sb.Append(((string)error).ToString() + " ");
+					}
+				}
+
+				await Shell.Current.DisplayAlert("Invalid Email", $"The entered email is invalid! {sb.ToString()}Please try again.", "OK");
+			}
+
+			return valid;
+		}
+
+		async Task<bool> ValidatePassword()
+		{
+			bool valid = false;
+			StringBuilder sb = new StringBuilder();
+
+			if (_isPasswordValid)
+			{
+				valid = true;
+			}
+			else
+			{
+				valid = false;
+				sb.Clear();
+
+				foreach (var error in _errorPassword)
+				{
+					if (error is string)
+					{
+						sb.Append(((string)error).ToString() + " ");
+					}
+				}
+
+				await Shell.Current.DisplayAlert("Invalid Password", $"The entered password is invalid! {sb.ToString()}Please try again.", "OK");
+			}
+
+			return valid;
+		}
+
+		async Task<bool> ValidatePasswordConfirm()
+		{
+			bool valid = false;
+			StringBuilder sb = new StringBuilder();
+
+			if (_isPasswordConfirmValid)
+			{
+				valid = true;
+			}
+			else
+			{
+				valid = false;
+				sb.Clear();
+
+				foreach (var error in _errorPasswordConfirm)
+				{
+					if (error is string)
+					{
+						sb.Append(((string)error).ToString() + " ");
+					}
+				}
+
+				await Shell.Current.DisplayAlert("Invalid Password", $"The entered password is invalid! {sb.ToString()}Please try again.", "OK");
+			}
+
+			return valid;
+		}
+
+		async Task OnRegister()
+		{
+			bool isFirstnameValid = await ValidateFirstname();
+			bool isLastnameValid = await ValidateLastname();
+			bool isIDValid = await ValidateID();
+			bool isEmailValid = await ValidateEmail();
+			bool isPasswordValid = await ValidatePassword();
+			bool isPasswordConfirmValid = await ValidatePasswordConfirm();
+
+			if (isFirstnameValid && isLastnameValid && isIDValid && isEmailValid && isPasswordValid && isPasswordConfirmValid)
+            {
+				try
+				{
+					await UserService.AddUser(_id, _email, _firstname, _lastname, UserService.HashPassword(_password));
+					await Shell.Current.DisplayAlert("Account Registered", "Your account has been successfully created!", "OK");
+					await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+				}
+				catch (ExistingID ex)
+				{
+					await Shell.Current.DisplayAlert("ID Already Exists", ex.Message, "OK");
+				}
+				catch (ExistingEmail ex)
+				{
+					await Shell.Current.DisplayAlert("Email Already Exists", ex.Message, "OK");
+				}
+				catch (Exception ex)
+				{
+					await Shell.Current.DisplayAlert("Error", "An unknown error has occured! Please try again.", "OK");
+				}
+			}  
+		}
+
+		async Task GoToLogin()
+        {
+			await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+		}
+	}
+}
+

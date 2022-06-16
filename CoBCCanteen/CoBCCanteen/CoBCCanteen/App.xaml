@@ -5,11 +5,36 @@
     <!--
         Define global resources and styles here, that apply to all pages in your app.
     -->
+
     <Application.Resources>
-        <ResourceDictionary>
-            <Color x:Key="Primary">#2196F3</Color>
-            
-        </ResourceDictionary>        
+        <Color x:Key="PrimaryBlue">#00a9e0</Color>
+        <Color x:Key="PrimaryGrey">#888b8d</Color>
+        <Color x:Key="PrimaryBlack">#000000</Color>
+        <Color x:Key="PrimaryWhite">#ffffff</Color>
+
+        <Color x:Key="SecondaryNavy">#003349</Color>
+        <Color x:Key="SecondaryAqua">#68d2df</Color>
+        <Color x:Key="SecondaryIndigo">#005587</Color>
+        <Color x:Key="SecondaryLime">#c5e86c</Color>
+        <Color x:Key="SecondaryMint">#279989</Color>
+        <Color x:Key="SecondaryPeach">#f8ad6d</Color>
+        <Color x:Key="SecondaryPink">#ff5b73</Color>
+
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{StaticResource PrimaryBlue}"/>
+            <Setter Property="TextColor" Value="{StaticResource PrimaryWhite}"/>
+        </Style>
+
+        <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{StaticResource SecondaryPink}"/>
+            <Setter Property="TextColor" Value="{StaticResource PrimaryWhite}"/>
+        </Style>
+
+        <Style x:Key="PrimaryLabelLinkStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource PrimaryBlue}"/>
+            <Setter Property="TextDecorations" Value="Underline"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+        </Style>     
     </Application.Resources>
 </Application>
 
