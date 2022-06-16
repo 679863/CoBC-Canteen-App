@@ -5,7 +5,7 @@
     xmlns:viewmodels="clr-namespace:CoBCCanteen.ViewModels"
     x:Class="CoBCCanteen.Views.LoginPage"
     x:DataType="viewmodels:LoginPageViewModel"
-    BackgroundColor="White"
+    BackgroundColor="{StaticResource PrimaryWhite}"
     Shell.NavBarIsVisible="False"
     Shell.TabBarIsVisible="False"
     Shell.FlyoutBehavior="Disabled">

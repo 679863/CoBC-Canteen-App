@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using CoBCCanteen.Models;
@@ -68,7 +69,7 @@ namespace CoBCCanteen.ViewModels
 			DisplayFullname = $"Name: { activeUser.Firstname } { activeUser.Lastname }";
 			DisplayID = $"ID: { activeUser.Id }";
 			DisplayEmail = $"Email: { activeUser.Email }";
-			DisplayBalance = $"Balance: { (activeUser.Balance / 100).ToString("C") }";
+			DisplayBalance = $"Balance: { (activeUser.Balance / 100).ToString("C", CultureInfo.GetCultureInfo("en-GB")) }";
 		}
 
 		async Task Logout()
