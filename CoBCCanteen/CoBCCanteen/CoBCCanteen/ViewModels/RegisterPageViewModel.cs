@@ -8,39 +8,29 @@ using System.Collections.Generic;
 using System.Text;
 using CoBCCanteen.Services;
 
-// ToDO.
-// > Change the displaying of alerts to a way that adheres to MVVM principles.
 
 namespace CoBCCanteen.ViewModels
 {
 	public class RegisterPageViewModel : BindableObject
 	{
-		public ICommand RegisterUser { get; }
-		public ICommand DisplayLogin { get; }
-
-		public RegisterPageViewModel()
-		{
-			RegisterUser = new Command(async() => await OnRegister());
-			DisplayLogin = new Command(async() => await GoToLogin());
-		}
-
+		// For entry binding.
 		private string _firstname;
 		public string Firstname
-        {
+		{
 			get => _firstname;
-            set
-            {
-                if (value == _firstname)
-                {
+			set
+			{
+				if (value == _firstname)
+				{
 					return;
-                }
-                else
-                {
+				}
+				else
+				{
 					_firstname = value;
 					OnPropertyChanged();
-                }
-            }
-        }
+				}
+			}
+		}
 
 		private string _lastname;
 		public string Lastname
@@ -96,7 +86,6 @@ namespace CoBCCanteen.ViewModels
 			}
 		}
 
-		// Hash thi
 		private string _password;
 		public string Password
 		{
@@ -115,16 +104,17 @@ namespace CoBCCanteen.ViewModels
 			}
 		}
 
+		// For validation binding. Bulk of validation done in RegisterPage.xaml using Xamarin Community Toolkit.
 		private bool _isFirstnameValid;
 		public bool IsFirstnameValid
-        {
+		{
 			get => _isFirstnameValid;
 			set
-            {
+			{
 				_isFirstnameValid = value;
 				OnPropertyChanged();
-            }
-        }
+			}
+		}
 
 		private bool _isLastnameValid;
 		public bool IsLastnameValid
@@ -181,17 +171,18 @@ namespace CoBCCanteen.ViewModels
 			}
 		}
 
+		// For error binding. Feature of MultiValidationBehavior in Xamarin Community Toolkit's Validation Behaviors.
 		private List<object> _errorFirstname;
 		public List<object> errorFirstname
 		{
 			get => _errorFirstname;
 			set
-            {
-                if (value != null)
-                {
+			{
+				if (value != null)
+				{
 					_errorFirstname = value;
-                }
-            }
+				}
+			}
 		}
 
 		private List<object> _errorLastname;
@@ -259,6 +250,18 @@ namespace CoBCCanteen.ViewModels
 			}
 		}
 
+		// For button binding.
+		public ICommand RegisterUser { get; }
+		public ICommand DisplayLogin { get; }
+
+		public RegisterPageViewModel()
+		{
+			RegisterUser = new Command(async() => await OnRegister());
+			DisplayLogin = new Command(async() => await GoToLogin());
+		}
+
+		// Determins whether the user's input is valid. If not an alert is displayed.
+		// Are the alerts breaking the MVVM principle?
 		async Task<bool> ValidateFirstname()
         {
 			bool valid = false;
@@ -404,7 +407,7 @@ namespace CoBCCanteen.ViewModels
 			bool valid = false;
 			StringBuilder sb = new StringBuilder();
 
-			if (_isFirstnameValid)
+			if (_isPasswordConfirmValid)
 			{
 				valid = true;
 			}

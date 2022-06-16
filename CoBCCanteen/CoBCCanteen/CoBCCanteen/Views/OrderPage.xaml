@@ -13,15 +13,13 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem>
             <ToolbarItem.IconImageSource>
+                <!--> Makes use of font awesome icons. Uses FontAwesome.cs to look up icons. <!-->
                 <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:FontAwesomeIcons.BasketShopping}"/>
             </ToolbarItem.IconImageSource>
-
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-            <Label Text="Logged In"/>
-            <Button Text="Test" Command="{Binding RunTest}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

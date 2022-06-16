@@ -24,7 +24,7 @@
     <None Remove="Fonts\FontAwesomeSolid.otf" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="FontAwesome.otf\" />
+    <Folder Include="Models\" />
     <Folder Include="Services\" />
     <Folder Include="Views\" />
     <Folder Include="Fonts\" />

@@ -6,6 +6,7 @@
        Title="CoBCCanteen"
        x:Class="CoBCCanteen.AppShell">
 
+    <!-- Tabbar and toolbar styling. -->
     <Shell.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
@@ -24,19 +25,22 @@
         </ResourceDictionary>
     </Shell.Resources>        
 
-
+    <!-- Navigatable pages that are not in the tabbar. -->
     <ShellItem Route="LoginPage" FlyoutItemIsVisible="False">
         <ShellContent ContentTemplate="{DataTemplate local:LoginPage}"/>
     </ShellItem>
 
+    <!-- Tabbar navigation options. -->
     <TabBar>
         <ShellContent Title="Order" Route="OrderPage" ContentTemplate="{DataTemplate local:OrderPage}">
             <ShellContent.Icon>
+                <!--> Makes use of font awesome icons. Uses FontAwesome.cs to look up icons. <!-->
                 <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:FontAwesomeIcons.Burger}"/>
             </ShellContent.Icon>
         </ShellContent>
         <ShellContent Title="My Account" Route="UserAccount" ContentTemplate="{DataTemplate local:MyAccount}">
             <ShellContent.Icon>
+                <!--> Makes use of font awesome icons. Uses FontAwesome.cs to look up icons. <!-->
                 <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:FontAwesomeIcons.User}"/>
             </ShellContent.Icon>
         </ShellContent>

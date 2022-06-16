@@ -15,6 +15,7 @@ namespace CoBCCanteen.Views
 			viewModel = this.BindingContext as MyAccountViewModel;
 		}
 
+        // Updates bindings when page appears.
         protected override void OnAppearing()
         {
             base.OnAppearing();

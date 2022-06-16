@@ -9,7 +9,45 @@ namespace CoBCCanteen.ViewModels
 {
 	public class LoginPageViewModel : BindableObject
 	{
-		public ICommand LoginUser { get; }
+        // For entry binding.
+        private string _id;
+        public string ID
+        {
+            get => _id;
+            set
+            {
+                if (value == _id)
+                {
+                    return;
+                }
+                else
+                {
+                    _id = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _password;
+        public string Password
+        {
+            get => _password;
+            set
+            {
+                if (value == _password)
+                {
+                    return;
+                }
+                else
+                {
+                    _password = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        // For button binding.
+        public ICommand LoginUser { get; }
 		public ICommand DisplayRegister { get; }
 
 		public LoginPageViewModel()
@@ -17,42 +55,6 @@ namespace CoBCCanteen.ViewModels
 			LoginUser = new Command(OnLogin);
 			DisplayRegister = new Command(GoToRegister);
 		}
-
-		private string _id;
-		public string ID
-        {
-			get => _id;
-            set
-            {
-                if (value == _id)
-                {
-					return;
-                }
-                else
-                {
-					_id = value;
-					OnPropertyChanged();
-                }
-            }
-        }
-
-		private string _password;
-		public string Password
-        {
-			get => _password;
-            set
-            {
-                if (value == _password)
-                {
-					return;
-                }
-                else
-                {
-					_password = value;
-					OnPropertyChanged();
-                }
-            }
-        }
 
 		async void OnLogin()
         {
@@ -64,11 +66,10 @@ namespace CoBCCanteen.ViewModels
             {
                 try
                 {
-                    Console.WriteLine(_id);
+                    // Stores logged in user to ActiveUser in App.xaml.cs.
                     (App.Current as CoBCCanteen.App).ActiveUser = await UserService.Login(_id, UserService.HashPassword(_password));
                     if ((App.Current as CoBCCanteen.App).ActiveUser != null)
                     {
-                        Console.WriteLine((App.Current as CoBCCanteen.App).ActiveUser.Firstname);
                         await Shell.Current.GoToAsync($"//{ nameof(OrderPage) }");
                     }
                     else

@@ -10,8 +10,10 @@ namespace CoBCCanteen.ViewModels
 {
 	public class MyAccountViewModel : BindableObject
 	{
+		// Property for storing the logged in user.
 		public User activeUser { get; set; }
 
+		// For label binding.
 		private string _displayFullname;
 		public string DisplayFullname
         {
@@ -56,6 +58,7 @@ namespace CoBCCanteen.ViewModels
             }
         }
 
+		// For button binding.
 		public ICommand LogoutUser { get; set; }
 
 		public MyAccountViewModel()
@@ -63,6 +66,7 @@ namespace CoBCCanteen.ViewModels
 			LogoutUser = new Command(async () => await Logout());
 		}
 
+		// Called in MyAccount.xaml.cs in OnAppearing. Updates bindings when page appears.
 		public void Init()
         {
 			activeUser = (App.Current as CoBCCanteen.App).ActiveUser;

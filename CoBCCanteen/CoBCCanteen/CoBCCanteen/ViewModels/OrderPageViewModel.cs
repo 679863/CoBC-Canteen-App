@@ -12,20 +12,13 @@ namespace CoBCCanteen.ViewModels
 {
     class OrderPageViewModel : BindableObject
     {
+        // Property for storing logged in user.
         private User activeUser { get; set; }
-
-        public ICommand RunTest { get; }
 
         public OrderPageViewModel()
         {
+            // Move into function called Init(). Call in OrderPage.xaml.cs in OnAppearing(). Will update value when page appears.
             activeUser = (App.Current as CoBCCanteen.App).ActiveUser;
-            Console.WriteLine((App.Current as CoBCCanteen.App).ActiveUser.Lastname);
-            RunTest = new Command(async() => await TestPass());
-        }
-
-        async Task TestPass()
-        {
-            await Shell.Current.DisplayAlert($"{activeUser.Firstname} {activeUser.Lastname}", $"{activeUser.Id} {activeUser.Email} {activeUser.IsAdmin} {activeUser.Balance} {activeUser.Password}", "OK");
         }
     }
 }

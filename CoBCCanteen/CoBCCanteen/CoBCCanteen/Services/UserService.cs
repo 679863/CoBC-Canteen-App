@@ -14,6 +14,7 @@ namespace CoBCCanteen.Services
 	{
 		static SQLiteAsyncConnection db;
 
+		// Creates database and table if it is not existing.
 		static async Task Init()
 		{
 			string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Database.db");
@@ -23,11 +24,13 @@ namespace CoBCCanteen.Services
 				db = new SQLiteAsyncConnection(path);
 			}
 
+			// Queries the database as to whether the "Users" table exists.
 			var tblExist = await db.ExecuteScalarAsync<string>("SELECT name FROM sqlite_master WHERE type='table' AND name='Users';");
 			if (tblExist == null)
 			{
 				await db.CreateTableAsync<User>();
 
+				// Creates default admin users.
 				List<User> campuses = new List<User>()
 				{
 					new User()
@@ -68,14 +71,17 @@ namespace CoBCCanteen.Services
             }
 		}
 
+		// Adds user to database.
 		public static async Task AddUser(string _id, string _email, string _firstname, string _lastname, string _password)
         {
 			//await DeleteDatabse();
 			await Init();
 
+			// Stores the user's first and last name in a correct format.
 			string firstname = _firstname[0].ToString().ToUpper() + _firstname.Substring(1);
 			string lastname = _lastname[0].ToString().ToUpper() + _lastname.Substring(1);
 
+			// Checks if a user with entered id or email already exists.
 			bool isUserExisting = await (IsUserExisting(_id, _email));
             if (!isUserExisting)
             {
@@ -94,6 +100,7 @@ namespace CoBCCanteen.Services
 			}
         }
 
+		// Checks if a user with entered id or email already exists.
 		public static async Task<bool> IsUserExisting(string id, string email)
         {
 			bool isExisting = true;
@@ -108,11 +115,13 @@ namespace CoBCCanteen.Services
                 }
                 else if (countEmail != 0)
                 {
+					// Custom exception.
 					throw new ExistingEmail(email);
                 }
             }
             else if (countID != 0)
             {
+				// Custom exception.
 				throw new ExistingID(id);
             }
 
@@ -131,6 +140,7 @@ namespace CoBCCanteen.Services
 			return db.Table<User>().Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
+		// Called once if changes are made to the database, so the database updates.
 		public static async Task DeleteDatabse()
         {
 			await Init();
@@ -138,6 +148,7 @@ namespace CoBCCanteen.Services
 			db = null;
         }
 
+		// Hashes the user's password in preparation for storing it in the database, and comparing password when loggin in.
 		public static string HashPassword(string password)
 		{
 			using (SHA256 sha256 = SHA256.Create())

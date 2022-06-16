@@ -3,9 +3,11 @@ using SQLite;
 
 namespace CoBCCanteen.Models
 {
+	// The table name, in the database, will be "Users" instead of the default "User".
 	[Table("Users")]
 	public class User
 	{
+		// Database fields.
 		[PrimaryKey, MaxLength(6), Column("Id"), NotNull]
 		public string Id { get; set; }
 		[MaxLength(64), Column("Firstname"), NotNull]

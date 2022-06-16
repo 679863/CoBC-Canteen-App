@@ -8,6 +8,7 @@ namespace CoBCCanteen
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class App : Application
     {
+        // Keeps track of the logged in user. Accessible from all viewmodels.
         private User _activeUser;
         public User ActiveUser
         {

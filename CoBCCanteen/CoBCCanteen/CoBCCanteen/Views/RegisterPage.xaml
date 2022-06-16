@@ -16,7 +16,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="InvalidEntryStyle" TargetType="Entry" >
-                <Setter Property="TextColor" Value="Red" />
+                <Setter Property="TextColor" Value="{StaticResource SecondaryPink}" />
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -26,6 +26,7 @@
             <Label Text="Sign Up" FontSize="28" HorizontalOptions="Center" Margin="0, 25, 0, 10" />
             <Entry Placeholder="First Name" Text="{Binding Firstname, Mode=TwoWay}">
                 <Entry.Behaviors>
+                    <!--> Uses Xamarin Community Toolkit's Validation Behaviors for validating user input. <!-->
                     <xct:MultiValidationBehavior x:Name="FirstnameValidation" IsValid="{Binding IsFirstnameValid}" Errors="{Binding errorFirstname}" Flags="ForceMakeValidWhenFocused" InvalidStyle="{StaticResource InvalidEntryStyle}">
                         <xct:CharactersValidationBehavior
                             DecorationFlags="Trim"
