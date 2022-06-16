@@ -68,23 +68,26 @@ namespace CoBCCanteen.Services
             }
 		}
 
-		public static async Task AddUser(string id, string email, string firstname, string lastname, string password)
+		public static async Task AddUser(string _id, string _email, string _firstname, string _lastname, string _password)
         {
 			//await DeleteDatabse();
 			await Init();
 
-            bool isUserExisting = await (IsUserExisting(id, email));
+			string firstname = _firstname[0].ToString().ToUpper() + _firstname.Substring(1);
+			string lastname = _lastname[0].ToString().ToUpper() + _lastname.Substring(1);
+
+			bool isUserExisting = await (IsUserExisting(_id, _email));
             if (!isUserExisting)
             {
 				var newUser = new User
 				{
-					Id = id,
+					Id = _id,
 					Firstname = firstname,
 					Lastname = lastname,
-					Email = email,
+					Email = _email,
 					IsAdmin = false,
 					Balance = 0,
-					Password = password
+					Password = _password
 				};
 
 				await db.InsertAsync(newUser);
