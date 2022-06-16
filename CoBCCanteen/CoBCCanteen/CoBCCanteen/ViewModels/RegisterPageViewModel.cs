@@ -10,7 +10,6 @@ using CoBCCanteen.Services;
 
 // ToDO.
 // > Change the displaying of alerts to a way that adheres to MVVM principles.
-// > Change Id field in User.cs to int. (note parsing may change 000001 to 1).
 
 namespace CoBCCanteen.ViewModels
 {
@@ -260,118 +259,18 @@ namespace CoBCCanteen.ViewModels
 			}
 		}
 
-		async Task OnRegister()
-		{
+		async Task<bool> ValidateFirstname()
+        {
+			bool valid = false;
 			StringBuilder sb = new StringBuilder();
 
-            if (_isFirstnameValid)
+			if (_isFirstnameValid)
             {
-                if (_isLastnameValid)
-                {
-                    if (_isIDValid)
-                    {
-                        if (_isEmailValid)
-                        {
-                            if (_isPasswordValid)
-                            {
-                                if (_isPasswordConfirmValid)
-                                {
-                                    try
-                                    {
-                                        await UserService.AddUser(_id, _email, _firstname, _lastname, UserService.HashPassword(_password));
-                                        await Shell.Current.DisplayAlert("Account Registered", "Your account has been successfully created!", "OK");
-                                        await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
-                                    }
-                                    catch (ExistingID ex)
-                                    {
-                                        await Shell.Current.DisplayAlert("ID Already Exists", ex.Message, "OK");
-                                    }
-                                    catch (ExistingEmail ex)
-                                    {
-                                        await Shell.Current.DisplayAlert("Email Already Exists", ex.Message, "OK");
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        await Shell.Current.DisplayAlert("Error", "An unknown error has occured! Please try again.", "OK");
-                                    }
-                                }
-								else
-                                {
-									sb.Clear();
-
-                                    foreach (var error in _errorPasswordConfirm)
-                                    {
-                                        if (error is string)
-                                        {
-											sb.Append(((string)error).ToString() + " ");
-                                        }
-                                    }
-
-									await Shell.Current.DisplayAlert("Invalid Password", $"The entered password is invalid! { sb.ToString() }Please try again.", "OK");
-                                }
-                            }
-                            else
-                            {
-								sb.Clear();
-
-								foreach (var error in _errorPassword)
-								{
-									if (error is string)
-									{
-										sb.Append(((string)error).ToString() + " ");
-									}
-								}
-
-								await Shell.Current.DisplayAlert("Invalid Password", $"The entered password is invalid! { sb.ToString() }Please try again.", "OK");
-							}
-                        }
-                        else
-                        {
-							sb.Clear();
-
-							foreach (var error in _errorEmail)
-							{
-								if (error is string)
-								{
-									sb.Append(((string)error).ToString() + " ");
-								}
-							}
-
-							await Shell.Current.DisplayAlert("Invalid Email", $"The entered email is invalid! { sb.ToString() }Please try again.", "OK");
-						}
-                    }
-                    else
-                    {
-						sb.Clear();
-
-						foreach (var error in _errorID)
-						{
-							if (error is string)
-							{
-								sb.Append(((string)error).ToString() + " ");
-							}
-						}
-
-						await Shell.Current.DisplayAlert("Invalid Student ID", $"The entered ID is invalid! { sb.ToString() }Please try again.", "OK");
-					}
-                }
-                else
-                {
-					sb.Clear();
-
-					foreach (var error in _errorLastname)
-					{
-						if (error is string)
-						{
-							sb.Append(((string)error).ToString() + " ");
-						}
-					}
-
-					await Shell.Current.DisplayAlert("Invalid Lastname", $"The entered lastname is invalid! { sb.ToString() }Please try again.", "OK");
-				}
+				valid = true;
             }
             else
             {
+				valid = false;
 				sb.Clear();
 
 				foreach (var error in _errorFirstname)
@@ -382,8 +281,182 @@ namespace CoBCCanteen.ViewModels
 					}
 				}
 
-				await Shell.Current.DisplayAlert("Invalid Firstname", $"The entered firstname is invalid! { sb.ToString() }Please try again.", "OK");
+				await Shell.Current.DisplayAlert("Invalid Firstname", $"The entered firstname is invalid! {sb.ToString()}Please try again.", "OK");
 			}
+
+			return valid;
+        }
+
+		async Task<bool> ValidateLastname()
+		{
+			bool valid = false;
+			StringBuilder sb = new StringBuilder();
+
+			if (_isLastnameValid)
+			{
+				valid = true;
+			}
+			else
+			{
+				valid = false;
+				sb.Clear();
+
+				foreach (var error in _errorLastname)
+				{
+					if (error is string)
+					{
+						sb.Append(((string)error).ToString() + " ");
+					}
+				}
+
+				await Shell.Current.DisplayAlert("Invalid Lastname", $"The entered lastname is invalid! {sb.ToString()}Please try again.", "OK");
+			}
+
+			return valid;
+		}
+
+		async Task<bool> ValidateID()
+		{
+			bool valid = false;
+			StringBuilder sb = new StringBuilder();
+
+			if (_isIDValid)
+			{
+				valid = true;
+			}
+			else
+			{
+				valid = false;
+				sb.Clear();
+
+				foreach (var error in _errorID)
+				{
+					if (error is string)
+					{
+						sb.Append(((string)error).ToString() + " ");
+					}
+				}
+
+				await Shell.Current.DisplayAlert("Invalid Student ID", $"The entered ID is invalid! {sb.ToString()}Please try again.", "OK");
+			}
+
+			return valid;
+		}
+
+		async Task<bool> ValidateEmail()
+		{
+			bool valid = false;
+			StringBuilder sb = new StringBuilder();
+
+			if (_isEmailValid)
+			{
+				valid = true;
+			}
+			else
+			{
+				valid = false;
+				sb.Clear();
+
+				foreach (var error in _errorEmail)
+				{
+					if (error is string)
+					{
+						sb.Append(((string)error).ToString() + " ");
+					}
+				}
+
+				await Shell.Current.DisplayAlert("Invalid Email", $"The entered email is invalid! {sb.ToString()}Please try again.", "OK");
+			}
+
+			return valid;
+		}
+
+		async Task<bool> ValidatePassword()
+		{
+			bool valid = false;
+			StringBuilder sb = new StringBuilder();
+
+			if (_isPasswordValid)
+			{
+				valid = true;
+			}
+			else
+			{
+				valid = false;
+				sb.Clear();
+
+				foreach (var error in _errorPassword)
+				{
+					if (error is string)
+					{
+						sb.Append(((string)error).ToString() + " ");
+					}
+				}
+
+				await Shell.Current.DisplayAlert("Invalid Password", $"The entered password is invalid! {sb.ToString()}Please try again.", "OK");
+			}
+
+			return valid;
+		}
+
+		async Task<bool> ValidatePasswordConfirm()
+		{
+			bool valid = false;
+			StringBuilder sb = new StringBuilder();
+
+			if (_isFirstnameValid)
+			{
+				valid = true;
+			}
+			else
+			{
+				valid = false;
+				sb.Clear();
+
+				foreach (var error in _errorPasswordConfirm)
+				{
+					if (error is string)
+					{
+						sb.Append(((string)error).ToString() + " ");
+					}
+				}
+
+				await Shell.Current.DisplayAlert("Invalid Password", $"The entered password is invalid! {sb.ToString()}Please try again.", "OK");
+			}
+
+			return valid;
+		}
+
+		async Task OnRegister()
+		{
+			bool isFirstnameValid = await ValidateFirstname();
+			bool isLastnameValid = await ValidateLastname();
+			bool isIDValid = await ValidateID();
+			bool isEmailValid = await ValidateEmail();
+			bool isPasswordValid = await ValidatePassword();
+			bool isPasswordConfirmValid = await ValidatePasswordConfirm();
+
+			if (isFirstnameValid && isLastnameValid && isIDValid && isEmailValid && isPasswordValid && isPasswordConfirmValid)
+            {
+				try
+				{
+					await UserService.AddUser(_id, _email, _firstname, _lastname, UserService.HashPassword(_password));
+					await Shell.Current.DisplayAlert("Account Registered", "Your account has been successfully created!", "OK");
+					await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+				}
+				catch (ExistingID ex)
+				{
+					await Shell.Current.DisplayAlert("ID Already Exists", ex.Message, "OK");
+				}
+				catch (ExistingEmail ex)
+				{
+					await Shell.Current.DisplayAlert("Email Already Exists", ex.Message, "OK");
+				}
+				catch (Exception ex)
+				{
+					await Shell.Current.DisplayAlert("Error", "An unknown error has occured! Please try again.", "OK");
+				}
+			}  
 		}
 
 		async Task GoToLogin()
