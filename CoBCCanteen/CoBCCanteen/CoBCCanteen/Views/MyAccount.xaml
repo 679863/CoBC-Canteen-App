@@ -15,7 +15,7 @@
             <Label Text="{Binding DisplayID}"/>
             <Label Text="{Binding DisplayEmail}"/>
             <Label Text="{Binding DisplayBalance}"/>
-            <Button Text="Logout" Command="{Binding LogoutUser}" Style="SecondaryButtonStyle" Margin="0, 50, 0, 0"/>
+            <Button Text="Logout" Command="{Binding LogoutUser}" Style="{StaticResource SecondaryButtonStyle}" Margin="0, 50, 0, 0"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

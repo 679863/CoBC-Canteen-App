@@ -8,7 +8,18 @@ namespace CoBCCanteen
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class App : Application
     {
-        public User ActiveUser { get; set; }
+        private User _activeUser;
+        public User ActiveUser
+        {
+            get => _activeUser;
+            set
+            {
+                if (_activeUser != value)
+                {
+                    _activeUser = value;
+                }
+            }
+        }
 
         public App ()
         {

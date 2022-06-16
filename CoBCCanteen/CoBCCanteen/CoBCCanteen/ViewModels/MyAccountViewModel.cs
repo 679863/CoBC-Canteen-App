@@ -39,7 +39,7 @@ namespace CoBCCanteen.ViewModels
 			get => _displayEmail;
             set
             {
-				_displayID = value;
+				_displayEmail = value;
 				OnPropertyChanged(nameof(DisplayEmail));
             }
         }
@@ -59,6 +59,11 @@ namespace CoBCCanteen.ViewModels
 
 		public MyAccountViewModel()
 		{
+			LogoutUser = new Command(async () => await Logout());
+		}
+
+		public void Init()
+        {
 			activeUser = (App.Current as CoBCCanteen.App).ActiveUser;
 			DisplayFullname = $"Name: { activeUser.Firstname } { activeUser.Lastname }";
 			DisplayID = $"ID: { activeUser.Id }";
@@ -69,6 +74,7 @@ namespace CoBCCanteen.ViewModels
 		async Task Logout()
         {
 			(App.Current as CoBCCanteen.App).ActiveUser = null;
+			activeUser = null;
 			await Shell.Current.GoToAsync($"//{ nameof(LoginPage) }");
         }
 	}

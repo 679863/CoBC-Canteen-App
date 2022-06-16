@@ -64,10 +64,11 @@ namespace CoBCCanteen.ViewModels
             {
                 try
                 {
-                    User activeUser = await UserService.Login(_id, UserService.HashPassword(_password));
-                    if (activeUser != null)
+                    Console.WriteLine(_id);
+                    (App.Current as CoBCCanteen.App).ActiveUser = await UserService.Login(_id, UserService.HashPassword(_password));
+                    if ((App.Current as CoBCCanteen.App).ActiveUser != null)
                     {
-                        (App.Current as CoBCCanteen.App).ActiveUser = activeUser;
+                        Console.WriteLine((App.Current as CoBCCanteen.App).ActiveUser.Firstname);
                         await Shell.Current.GoToAsync($"//{ nameof(OrderPage) }");
                     }
                     else
