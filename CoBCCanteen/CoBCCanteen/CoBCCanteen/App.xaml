@@ -36,6 +36,10 @@
             <Setter Property="HorizontalOptions" Value="Center"/>
         </Style>
 
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry" >
+            <Setter Property="TextColor" Value="{StaticResource SecondaryPink}" />
+        </Style>
+
         <Style x:Key="Separator" TargetType="BoxView">
             <Setter Property="HeightRequest" Value="1" />
             <Setter Property="WidthRequest" Value="50"/>

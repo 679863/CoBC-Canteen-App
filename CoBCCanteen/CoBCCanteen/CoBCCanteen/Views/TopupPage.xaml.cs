@@ -25,6 +25,18 @@ namespace CoBCCanteen.Views
             }
         }
 
+        private async void btnTopup_Clicked(object sender, EventArgs e)
+        {
+            await CardNumberValidation.ForceValidate();
+            await ExpiryDateValidation.ForceValidate();
+            await CVVValidation.ForceValidate();
+
+            if (viewModel.Topup.CanExecute(null))
+            {
+                viewModel.Topup.Execute(null);
+            }
+        }
+
         void OnSliderValueChanged(object sender, ValueChangedEventArgs e)
         {
             double stepValue = 1.0;

@@ -13,13 +13,6 @@
     <ContentPage.BindingContext>
         <viewmodels:RegisterPageViewModel/>
     </ContentPage.BindingContext>
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <Style x:Key="InvalidEntryStyle" TargetType="Entry" >
-                <Setter Property="TextColor" Value="{StaticResource SecondaryPink}" />
-            </Style>
-        </ResourceDictionary>
-    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="40">
             <Image Source="HeaderCoBC" HorizontalOptions="Center" HeightRequest="75" />

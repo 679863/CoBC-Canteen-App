@@ -22,12 +22,14 @@
     <None Remove="Fonts\FontAwesomeBrands.otf" />
     <None Remove="Fonts\FontAwesomeRegular.otf" />
     <None Remove="Fonts\FontAwesomeSolid.otf" />
+    <None Remove="Views\Converters\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Services\" />
     <Folder Include="Views\" />
     <Folder Include="Fonts\" />
+    <Folder Include="Views\Converters\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Fonts\FontAwesomeBrands.otf" />
