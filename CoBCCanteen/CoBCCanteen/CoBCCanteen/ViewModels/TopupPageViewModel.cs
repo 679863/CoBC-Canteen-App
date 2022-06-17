@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using CoBCCanteen.Models;
+using CoBCCanteen.Services;
 using Xamarin.Forms;
 
 namespace CoBCCanteen.ViewModels
@@ -164,6 +165,10 @@ namespace CoBCCanteen.ViewModels
 			activeUser = (App.Current as CoBCCanteen.App).ActiveUser;
 			DisplayBalance = $"My Balance: { (activeUser.Balance / 100).ToString("C", CultureInfo.GetCultureInfo("en-GB")) }";
 			DisplayTopupValue = _sliderTopupValue.ToString("C", CultureInfo.GetCultureInfo("en-GB"));
+			SliderTopupValue = 0.0;
+			CardNumber = String.Empty;
+			ExpiryDate = String.Empty;
+			CVV = String.Empty;
         }
 
 		async Task<bool> ValidateSliderValue()
@@ -277,10 +282,19 @@ namespace CoBCCanteen.ViewModels
 
             if (isSliderValueValid && isCardNumberValid && isExpiryDateValid && isCVVValid)
             {
-                Console.WriteLine($"Topup Amount: { _sliderTopupValue.ToString("C", CultureInfo.GetCultureInfo("en-GB")) }");
-                Console.WriteLine($"Card Number: { _cardNumber }");
-                Console.WriteLine($"Expiry Date: { _expiryDate }");
-                Console.WriteLine($"CVV: { _cvv }");
+				activeUser.Balance += (int)_sliderTopupValue * 100;
+
+                try
+                {
+					(App.Current as CoBCCanteen.App).ActiveUser = await UserService.UpdateUserAndGet(activeUser);
+					await Shell.Current.DisplayAlert("Topup Successful", $"The topup was a success! { _sliderTopupValue.ToString("C", CultureInfo.GetCultureInfo("en-GB")) } has been added to your account.", "OK");
+					Init();
+				}
+                catch (Exception ex)
+                {
+					activeUser.Balance -= (int)_sliderTopupValue * 100;
+					await Shell.Current.DisplayAlert("Topup Unsuccessful", "The topup was unsuccessful. Please try again!", "OK");
+                }
             }
         }
 	}

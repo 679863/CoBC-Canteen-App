@@ -141,6 +141,12 @@ namespace CoBCCanteen.Services
 			return db.Table<User>().Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
+		public static async Task<User> UpdateUserAndGet(User user)
+        {
+			await db.UpdateAsync(user);
+			return await db.Table<User>().Where(x => x.Id == user.Id).FirstOrDefaultAsync();
+        }
+
 		// Called once if changes are made to the database, so the database updates.
 		public static async Task DeleteDatabse()
         {
