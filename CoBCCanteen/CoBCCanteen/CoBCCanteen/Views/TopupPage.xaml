@@ -15,6 +15,7 @@
             <Label Text="Topup Amount" Margin="0, 50, 0, 10"/>
             <Label Text="{Binding DisplayTopupValue}" FontSize="18" HorizontalOptions="Center"/>
             <Slider Value="{Binding SliderTopupValue}" x:Name="SliderValue" Minimum="0" Maximum="30" ValueChanged="OnSliderValueChanged" MaximumTrackColor="{StaticResource SecondaryPink}" MinimumTrackColor="{StaticResource SecondaryPink}" ThumbColor="{StaticResource SecondaryPink}"/>
+            <BoxView Style="{StaticResource Separator}"/>
             <Label Text="Payment Details" Margin="0, 25, 0, 10"/>
             <Entry Placeholder="Card number"/>
             <Grid VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
