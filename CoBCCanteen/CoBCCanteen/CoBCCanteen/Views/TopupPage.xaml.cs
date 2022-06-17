@@ -24,6 +24,14 @@ namespace CoBCCanteen.Views
                 viewModel.Init();
             }
         }
+
+        void OnSliderValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            double stepValue = 1.0;
+            var newStep = Math.Round(e.NewValue / stepValue);
+
+            SliderValue.Value = newStep * stepValue;
+        }
     }
 }
 
