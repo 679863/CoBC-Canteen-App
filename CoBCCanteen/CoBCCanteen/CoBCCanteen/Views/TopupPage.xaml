@@ -10,15 +10,25 @@
         <viewmodels:TopupPageViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="25">
-            <Label Text="{Binding DisplayBalance}"/>
-            <Label Text="{Binding DisplayTopupValue}"/>
-            <Slider Value="{Binding SliderTopupValue}" x:Name="SliderValue" Minimum="0" Maximum="30" ValueChanged="OnSliderValueChanged"/>
-            <Label Text="Payment details"/>
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="24">
+            <Label Text="{Binding DisplayBalance}" FontSize="22" HorizontalOptions="Center"/>
+            <Label Text="Topup Amount" Margin="0, 50, 0, 10"/>
+            <Label Text="{Binding DisplayTopupValue}" FontSize="18" HorizontalOptions="Center"/>
+            <Slider Value="{Binding SliderTopupValue}" x:Name="SliderValue" Minimum="0" Maximum="30" ValueChanged="OnSliderValueChanged" MaximumTrackColor="{StaticResource SecondaryPink}" MinimumTrackColor="{StaticResource SecondaryPink}" ThumbColor="{StaticResource SecondaryPink}"/>
+            <Label Text="Payment Details" Margin="0, 25, 0, 10"/>
             <Entry Placeholder="Card number"/>
-            <Entry Placeholder="Expiry date"/>
-            <Entry Placeholder="CVV"/>
-            <Button Text="Topup" Style="{StaticResource PrimaryButtonStyle}"/>
+            <Grid VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                <Entry Placeholder="Expiry date" Grid.Row="0" Grid.Column="0"/>
+                <Entry Placeholder="CVV" Grid.Row="0" Grid.Column="1"/>
+            </Grid>
+            <Button Text="Topup" Style="{StaticResource PrimaryButtonStyle}" Margin="0, 25, 0, 0"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -50,7 +50,7 @@ namespace CoBCCanteen.ViewModels
 		public void Init()
         {
 			activeUser = (App.Current as CoBCCanteen.App).ActiveUser;
-			DisplayBalance = $"My balance: { (activeUser.Balance / 100).ToString("C", CultureInfo.GetCultureInfo("en-GB")) }";
+			DisplayBalance = $"My Balance: { (activeUser.Balance / 100).ToString("C", CultureInfo.GetCultureInfo("en-GB")) }";
 			DisplayTopupValue = _sliderTopupValue.ToString("C", CultureInfo.GetCultureInfo("en-GB"));
         }
 	}
