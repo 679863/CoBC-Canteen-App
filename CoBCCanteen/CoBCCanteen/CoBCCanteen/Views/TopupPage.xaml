@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.Behaviors;assembly=Xamarin.CommunityToolkit"
+    xmlns:viewmodels="clr-namespace:CoBCCanteen.ViewModels"
+    xmlns:converters="clr-namespace:CoBCCanteen.Views.Converters"
+    x:DataType="viewmodels:TopupPageViewModel"
+    x:Class="CoBCCanteen.Views.TopupPage"
+    Title="Topup">
+    <ContentPage.BindingContext>
+        <viewmodels:TopupPageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <converters:CardNumberConverter x:Key="FormatCard"/>
+        <converters:ExpiryDateConverter x:Key="FormatExpiry"/>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="24">
+            <Label Text="{Binding DisplayBalance}" FontSize="22" HorizontalOptions="Center"/>
+            <BoxView Style="{StaticResource Separator}"/>
+            <Label Text="Topup Amount" Margin="0, 25, 0, 10"/>
+            <Label Text="{Binding DisplayTopupValue}" FontSize="18" HorizontalOptions="Center"/>
+            <Slider Value="{Binding SliderTopupValue}" x:Name="SliderValue" Minimum="0" Maximum="30" ValueChanged="OnSliderValueChanged" MaximumTrackColor="{StaticResource SecondaryPink}" MinimumTrackColor="{StaticResource SecondaryPink}" ThumbColor="{StaticResource SecondaryPink}"/>
+            <Label Text="Payment Details" Margin="0, 15, 0, 10"/>
+            <Entry Placeholder="Card number" Text="{Binding CardNumber, Converter={StaticResource FormatCard}, Mode=TwoWay}" MaxLength="19" Keyboard="Numeric">
+                <Entry.Behaviors>
+                    <xct:MultiValidationBehavior x:Name="CardNumberValidation" IsValid="{Binding IsCardNumberValid}" Errors="{Binding errorCardNumber}" Flags="ForceMakeValidWhenFocused" InvalidStyle="{StaticResource InvalidEntryStyle}">
+                        <xct:CharactersValidationBehavior
+                            DecorationFlags="Trim"
+                            MinimumCharacterCount="19"
+                            xct:MultiValidationBehavior.Error="The value is to short. It must be 16 digits long."
+                        />
+                        <xct:CharactersValidationBehavior
+                            DecorationFlags="Trim"
+                            RegexPattern="^[0-9 ]+$"
+                            xct:MultiValidationBehavior.Error="The value contains illegal character(s)."
+                        />
+                    </xct:MultiValidationBehavior>
+                </Entry.Behaviors>
+            </Entry>
+
+            <Grid VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                <Entry Placeholder="Expiring MM/YY" Text="{Binding ExpiryDate, Converter={StaticResource FormatExpiry}, Mode=TwoWay}" MaxLength="5" Keyboard="Numeric" Grid.Row="0" Grid.Column="0">
+                    <Entry.Behaviors>
+                        <xct:MultiValidationBehavior x:Name="ExpiryDateValidation" IsValid="{Binding IsExpiryDateValid}" Errors="{Binding errorExpiryDate}" Flags="ForceMakeValidWhenFocused" InvalidStyle="{StaticResource InvalidEntryStyle}">
+                            <xct:CharactersValidationBehavior
+                                DecorationFlags="Trim"
+                                MinimumCharacterCount="5"
+                                xct:MultiValidationBehavior.Error="The value is to short. It must be in the format of MM/YY."
+                            />
+                            <xct:CharactersValidationBehavior
+                                DecorationFlags="Trim"
+                                RegexPattern="^[0-9/]+$"
+                                xct:MultiValidationBehavior.Error="The value contains illegal character(s)."
+                            />
+                        </xct:MultiValidationBehavior>
+                    </Entry.Behaviors>
+                </Entry>
+                <Entry Placeholder="CVV Code" Text="{Binding CVV, Mode=TwoWay}" MaxLength="3" Keyboard="Numeric" Grid.Row="0" Grid.Column="1">
+                    <Entry.Behaviors>
+                        <xct:MultiValidationBehavior x:Name="CVVValidation" IsValid="{Binding IsCVVValid}" Errors="{Binding errorCVV}" Flags="ForceMakeValidWhenFocused" InvalidStyle="{StaticResource InvalidEntryStyle}">
+                            <xct:CharactersValidationBehavior
+                                DecorationFlags="Trim"
+                                MinimumCharacterCount="3"
+                                xct:MultiValidationBehavior.Error="The value is to short."
+                            />
+                            <xct:CharactersValidationBehavior
+                                DecorationFlags="Trim"
+                                RegexPattern="^[0-9]+$"
+                                xct:MultiValidationBehavior.Error="The value contains illegal character(s)."
+                            />
+                        </xct:MultiValidationBehavior>
+                    </Entry.Behaviors>
+                </Entry>
+            </Grid>
+            <Button Clicked="btnTopup_Clicked" Text="Topup" Style="{StaticResource PrimaryButtonStyle}" Margin="0, 15, 0, 0"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
+

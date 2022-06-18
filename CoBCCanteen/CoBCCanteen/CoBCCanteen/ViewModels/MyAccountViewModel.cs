@@ -11,7 +11,7 @@ namespace CoBCCanteen.ViewModels
 	public class MyAccountViewModel : BindableObject
 	{
 		// Property for storing the logged in user.
-		public User activeUser { get; set; }
+		User activeUser { get; set; }
 
 		// For label binding.
 		private string _displayFullname;

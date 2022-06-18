@@ -130,6 +130,7 @@ namespace CoBCCanteen.Services
 
 		public static async Task<User> Login(string id, string password)
         {
+			//await DeleteDatabse();
 			await Init();
 			User user = await db.Table<User>().Where(x => (x.Id == id) && (x.Password == password)).FirstOrDefaultAsync();
 			return user;
@@ -138,6 +139,12 @@ namespace CoBCCanteen.Services
 		public static Task<User> GetUserByID(string id)
         {
 			return db.Table<User>().Where(x => x.Id == id).FirstOrDefaultAsync();
+        }
+
+		public static async Task<User> UpdateUserAndGet(User user)
+        {
+			await db.UpdateAsync(user);
+			return await db.Table<User>().Where(x => x.Id == user.Id).FirstOrDefaultAsync();
         }
 
 		// Called once if changes are made to the database, so the database updates.

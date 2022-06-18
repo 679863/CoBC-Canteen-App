@@ -34,7 +34,21 @@
             <Setter Property="TextColor" Value="{StaticResource PrimaryBlue}"/>
             <Setter Property="TextDecorations" Value="Underline"/>
             <Setter Property="HorizontalOptions" Value="Center"/>
-        </Style>     
+        </Style>
+
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry" >
+            <Setter Property="TextColor" Value="{StaticResource SecondaryPink}" />
+        </Style>
+
+        <Style x:Key="Separator" TargetType="BoxView">
+            <Setter Property="HeightRequest" Value="1" />
+            <Setter Property="WidthRequest" Value="50"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="Color" Value="{StaticResource PrimaryGrey}" />
+            <Setter Property="Margin" Value="0, 5, 0, 5" />
+            <Setter Property="Opacity" Value="0.5" />
+        </Style>
     </Application.Resources>
 </Application>
 
