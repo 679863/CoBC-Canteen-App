@@ -251,16 +251,6 @@ namespace CoBCCanteen.ViewModels
 			bool formatValid = false;
 			StringBuilder sb = new StringBuilder();
 
-            if (int.Parse(_cvv.Substring(0, 2)) > 12)
-            {
-				formatValid = false;
-				_errorCVV.Add("The value of the month cannot be greater than 12.");
-            }
-            else
-            {
-				formatValid = true;
-            }
-
 			if (_isCVVValid && formatValid)
 			{
 				valid = true;
