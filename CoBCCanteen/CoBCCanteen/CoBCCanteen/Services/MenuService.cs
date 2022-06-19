@@ -175,7 +175,7 @@ namespace CoBCCanteen.Services
 						Container = "Can",
 						Price = 50,
 						Description = "Maximum taste. No sugar.",
-						Image = new Uri("https://latinmarket.co.uk/1384-large_default/walkers-oven-baked-sea-salt.jpg"),
+						Image = new Uri("https://www.pngkey.com/png/full/75-756600_pepsi-max-12-355ml-pepsi-max-can-png.png"),
 						Stock = 150,
 						Available = true,
 						Calories = 1,
@@ -214,15 +214,6 @@ namespace CoBCCanteen.Services
 			await Init();
 			List<MenuItem> mains = await db.Table<MenuItem>().Where(x => x.Type == "Main").ToListAsync();
 
-            if (mains == null)
-            {
-                Console.WriteLine("Null");
-            }
-            else
-            {
-                Console.WriteLine("no");
-            }
-
 			return mains;
         }
 
@@ -238,6 +229,14 @@ namespace CoBCCanteen.Services
 			List<MenuItem> drinks = await db.Table<MenuItem>().Where(x => x.Type == "Drink").ToListAsync();
 
 			return drinks;
+		}
+
+		// Called once if changes are made to the database, so the database updates.
+		public static async Task DeleteDatabse()
+		{
+			await Init();
+			await db.DropTableAsync<MenuItem>();
+			db = null;
 		}
 	}
 }

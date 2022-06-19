@@ -22,15 +22,15 @@ namespace CoBCCanteen.ViewModels
         List<Models.MenuItem> drinkItems { get; set; }
 
         public ObservableRangeCollection<Models.MenuItem> MainItems { get; set; }
-        private ObservableCollection<Models.MenuItem> SnackItems { get; set; }
-        private ObservableCollection<Models.MenuItem> DrinkItems { get; set; }
+        public ObservableRangeCollection<Models.MenuItem> SnackItems { get; set; }
+        public ObservableRangeCollection<Models.MenuItem> DrinkItems { get; set; }
 
         public OrderPageViewModel()
         {
             activeUser = (App.Current as CoBCCanteen.App).ActiveUser;
             MainItems = new ObservableRangeCollection<Models.MenuItem>();
             SnackItems = new ObservableRangeCollection<Models.MenuItem>();
-            DrinkItems = new ObservableCollection<Models.MenuItem>();
+            DrinkItems = new ObservableRangeCollection<Models.MenuItem>();
         }
 
         public Task Init()
@@ -44,10 +44,9 @@ namespace CoBCCanteen.ViewModels
             snackItems = await MenuService.GetSnackItems();
             drinkItems = await MenuService.GetDrinkItems();
 
-
             MainItems.AddRange(mainItems);
-            MainItems.AddRange(snackItems);
-            MainItems.AddRange(drinkItems);
+            SnackItems.AddRange(snackItems);
+            DrinkItems.AddRange(drinkItems);
         }
     }
 }
