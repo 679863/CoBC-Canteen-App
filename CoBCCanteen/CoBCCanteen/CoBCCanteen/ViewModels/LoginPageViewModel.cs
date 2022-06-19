@@ -60,15 +60,6 @@ namespace CoBCCanteen.ViewModels
 
 		async void OnLogin()
         {
-            if (File.Exists("imgs/HeaderCoBC.png"))
-            {
-                Console.WriteLine("Existing");
-            }
-            else
-            {
-                Console.WriteLine("No");
-            }
-
             if ((_id == null) | (_password == null))
             {
                 await Shell.Current.DisplayAlert("Invalid Credentials", "No credentials have been entered! Please try again.", "OK");

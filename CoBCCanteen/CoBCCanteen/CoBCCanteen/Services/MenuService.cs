@@ -189,7 +189,8 @@ namespace CoBCCanteen.Services
 					new MenuItem()
 					{
 						Name = "Tea",
-						Type = "Takeaway Cup",
+						Type = "Drink",
+						Container = "Takeaway Cup",
 						Price = 50,
 						Description = "Tea made with PG tips tea bags. Option of milk, ask on arrival.",
 						Image = new Uri("https://www.nicepng.com/png/full/315-3153101_paper-cup-transparent-background-coffee-cup-png.png"),
@@ -206,6 +207,37 @@ namespace CoBCCanteen.Services
 
 				await db.InsertAllAsync(menuItems);
 			}
+		}
+
+		public static async Task<List<MenuItem>> GetMainItems()
+        {
+			await Init();
+			List<MenuItem> mains = await db.Table<MenuItem>().Where(x => x.Type == "Main").ToListAsync();
+
+            if (mains == null)
+            {
+                Console.WriteLine("Null");
+            }
+            else
+            {
+                Console.WriteLine("no");
+            }
+
+			return mains;
+        }
+
+		public static async Task<List<MenuItem>> GetSnackItems()
+		{
+			List<MenuItem> snacks = await db.Table<MenuItem>().Where(x => x.Type == "Snack").ToListAsync();
+
+			return snacks;
+		}
+
+		public static async Task<List<MenuItem>> GetDrinkItems()
+		{
+			List<MenuItem> drinks = await db.Table<MenuItem>().Where(x => x.Type == "Drink").ToListAsync();
+
+			return drinks;
 		}
 	}
 }

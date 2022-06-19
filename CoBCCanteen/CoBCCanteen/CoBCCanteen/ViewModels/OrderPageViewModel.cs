@@ -7,6 +7,8 @@ using CoBCCanteen.Services;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
+using MvvmHelpers;
 
 namespace CoBCCanteen.ViewModels
 {
@@ -15,10 +17,37 @@ namespace CoBCCanteen.ViewModels
         // Property for storing logged in user.
         private User activeUser { get; set; }
 
+        List<Models.MenuItem> mainItems { get; set; }
+        List<Models.MenuItem> snackItems { get; set; }
+        List<Models.MenuItem> drinkItems { get; set; }
+
+        public ObservableRangeCollection<Models.MenuItem> MainItems { get; set; }
+        private ObservableCollection<Models.MenuItem> SnackItems { get; set; }
+        private ObservableCollection<Models.MenuItem> DrinkItems { get; set; }
+
         public OrderPageViewModel()
         {
-            // Move into function called Init(). Call in OrderPage.xaml.cs in OnAppearing(). Will update value when page appears.
             activeUser = (App.Current as CoBCCanteen.App).ActiveUser;
+            MainItems = new ObservableRangeCollection<Models.MenuItem>();
+            SnackItems = new ObservableRangeCollection<Models.MenuItem>();
+            DrinkItems = new ObservableCollection<Models.MenuItem>();
+        }
+
+        public Task Init()
+        {
+            return Task.Run(async () => await UpdateMenu());
+        }
+
+        async Task UpdateMenu()
+        {
+            mainItems = await MenuService.GetMainItems();
+            snackItems = await MenuService.GetSnackItems();
+            drinkItems = await MenuService.GetDrinkItems();
+
+
+            MainItems.AddRange(mainItems);
+            MainItems.AddRange(snackItems);
+            MainItems.AddRange(drinkItems);
         }
     }
 }

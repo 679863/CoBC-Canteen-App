@@ -7,12 +7,24 @@ using Xamarin.Forms;
 namespace CoBCCanteen.Views
 {	
 	public partial class OrderPage : ContentPage
-	{	
+	{
+		OrderPageViewModel viewModel;
+
 		public OrderPage ()
 		{
 			InitializeComponent ();
-			BindingContext = new OrderPageViewModel();
+			viewModel = this.BindingContext as OrderPageViewModel;
 		}
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            if (viewModel != null)
+            {
+				viewModel.Init();
+            }
+        }
 
 		private async void ToolbarItem_Clicked(object sender, EventArgs e)
         {

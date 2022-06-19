@@ -3,6 +3,8 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodels="clr-namespace:CoBCCanteen.ViewModels"
+    xmlns:mvvm="clr-namespace:MvvmHelpers;assembly=MvvmHelpers"
+    xmlns:model="clr-namespace:CoBCCanteen.Models"
     xmlns:fa="clr-namespace:FontAwesome"
     x:DataType="viewmodels:OrderPageViewModel"
     x:Class="CoBCCanteen.Views.OrderPage"
