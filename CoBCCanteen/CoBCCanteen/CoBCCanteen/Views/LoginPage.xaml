@@ -14,7 +14,7 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="40" >
-            <Image Source="HeaderCoBC" HorizontalOptions="Center" HeightRequest="75" />
+            <Image Source="HeaderCoBC" HorizontalOptions="Center" HeightRequest="75"/>
             <Label Text="Canteen Ordering App" FontSize="28" HorizontalOptions="Center" Margin="0, 25, 0, 10" />
             <Entry x:Name="txtID" Text="{Binding ID}" Placeholder="Student ID" Keyboard="Numeric" />
             <Entry x:Name="txtPassword" Text="{Binding Password}" Placeholder="Password" IsPassword="True" />

@@ -26,8 +26,16 @@ namespace CoBCCanteen.Models
 		public bool Available { get; set; }
 		[Column("Rotation")]
 		public string Rotation { get; set; }
-		[Column("Nutrition"), NotNull]
-		public string Nutrition { get; set; }
+		[Column("Calories"), NotNull]
+		public int Calories { get; set; }
+		[Column("Fats"), NotNull]
+		public float Fats { get; set; }
+		[Column("Saturates"), NotNull]
+		public float Saturates { get; set; }
+		[Column("Sugars"), NotNull]
+		public float Suagrs { get; set; }
+		[Column("Salts"), NotNull]
+		public float Salts { get; set; }
 		[Column("Allergens"), NotNull]
 		public string Allergens { get; set; }
 	}
