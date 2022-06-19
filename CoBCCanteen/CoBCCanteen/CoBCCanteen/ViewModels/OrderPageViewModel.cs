@@ -12,10 +12,21 @@ using MvvmHelpers;
 
 namespace CoBCCanteen.ViewModels
 {
-    class OrderPageViewModel : BindableObject
+    public class OrderPageViewModel : BindableObject
     {
         // Property for storing logged in user.
         private User activeUser { get; set; }
+
+        private string _test = "test";
+        public string test
+        {
+            get => _test;
+            set
+            {
+                _test = value;
+                OnPropertyChanged();
+            }
+        }
 
         List<Models.MenuItem> mainItems { get; set; }
         List<Models.MenuItem> snackItems { get; set; }
@@ -25,12 +36,15 @@ namespace CoBCCanteen.ViewModels
         public ObservableRangeCollection<Models.MenuItem> SnackItems { get; set; }
         public ObservableRangeCollection<Models.MenuItem> DrinkItems { get; set; }
 
+        public ICommand DisplayItemPage { get; }
+
         public OrderPageViewModel()
         {
             activeUser = (App.Current as CoBCCanteen.App).ActiveUser;
             MainItems = new ObservableRangeCollection<Models.MenuItem>();
             SnackItems = new ObservableRangeCollection<Models.MenuItem>();
             DrinkItems = new ObservableRangeCollection<Models.MenuItem>();
+            DisplayItemPage = new Command<string>(async (id) => await GoToItemPage(id));
         }
 
         public Task Init()
@@ -47,6 +61,11 @@ namespace CoBCCanteen.ViewModels
             MainItems.AddRange(mainItems);
             SnackItems.AddRange(snackItems);
             DrinkItems.AddRange(drinkItems);
+        }
+
+        private async Task GoToItemPage(string itemID)
+        {
+            await Shell.Current.DisplayAlert(itemID, itemID, "OK");
         }
     }
 }

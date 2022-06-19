@@ -50,7 +50,6 @@ namespace CoBCCanteen.ViewModels
         // For button binding.
         public ICommand LoginUser { get; }
 		public ICommand DisplayRegister { get; }
-        public bool FileExists { get; private set; }
 
         public LoginPageViewModel()
 		{
