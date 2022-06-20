@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using CoBCCanteen.Models;
+using System.Collections.Generic;
 
 namespace CoBCCanteen
 {
@@ -22,10 +23,13 @@ namespace CoBCCanteen
             }
         }
 
+        public List<Models.MenuItem> Basket { get; set; }
+
         public App ()
         {
             InitializeComponent();
             MainPage = new AppShell();
+            Basket = new List<Models.MenuItem>();
         }
 
         protected override void OnStart ()

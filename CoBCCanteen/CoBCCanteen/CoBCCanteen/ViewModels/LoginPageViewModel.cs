@@ -73,6 +73,7 @@ namespace CoBCCanteen.ViewModels
                     (App.Current as CoBCCanteen.App).ActiveUser = await UserService.Login(_id, UserService.HashPassword(_password));
                     if ((App.Current as CoBCCanteen.App).ActiveUser != null)
                     {
+                        (App.Current as CoBCCanteen.App).Basket.Clear();
                         await Shell.Current.GoToAsync($"//{ nameof(OrderPage) }");
                     }
                     else

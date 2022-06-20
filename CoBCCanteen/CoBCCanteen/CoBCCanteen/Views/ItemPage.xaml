@@ -80,7 +80,7 @@
                         </Image>
                     </Grid>
                 </Frame>
-                <Button Text="Add To Basket" Style="{StaticResource PrimaryButtonStyle}"/>
+                <Button Text="Add To Basket" Command="{Binding OnAddToBasket}" Style="{StaticResource PrimaryButtonStyle}"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

@@ -44,11 +44,13 @@ namespace CoBCCanteen.ViewModels
 
 		public ICommand OnDecrease { get; }
 		public ICommand OnIncrease { get; }
+		public ICommand OnAddToBasket { get; }
 
 		public ItemPageViewModel()
 		{
 			OnDecrease = new Command(execute: () => DecreaseQuantity());
 			OnIncrease = new Command(execute: () => IncreaseQuantity());
+			OnAddToBasket = new Command(execute: () => AddToBasket());
 		}
 
 		public Task Init()
@@ -91,6 +93,14 @@ namespace CoBCCanteen.ViewModels
 				DisplayQuantity = quantity.ToString();
 			}
 		}
+
+		void AddToBasket()
+        {
+            for (int i = 0; i < int.Parse(DisplayQuantity); i++)
+            {
+				(App.Current as CoBCCanteen.App).Basket.Add(item);
+            }
+        }
 	}
 }
 
