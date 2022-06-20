@@ -26,6 +26,11 @@ namespace CoBCCanteen.Views
                 viewModel.Init();
             }
         }
+
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync($"//{ nameof(OrderPage) }/{ nameof(ItemPage) }/{ nameof(Checkout) }");
+        }
     }
 }
 

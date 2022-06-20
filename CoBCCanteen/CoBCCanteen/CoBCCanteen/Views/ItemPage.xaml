@@ -10,7 +10,7 @@
         <viewmodels:ItemPageViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.ToolbarItems>
-        <ToolbarItem>
+        <ToolbarItem Clicked="ToolbarItem_Clicked">
             <ToolbarItem.IconImageSource>
                 <!--> Makes use of font awesome icons. Uses FontAwesome.cs to look up icons. <!-->
                 <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:FontAwesomeIcons.BasketShopping}"/>

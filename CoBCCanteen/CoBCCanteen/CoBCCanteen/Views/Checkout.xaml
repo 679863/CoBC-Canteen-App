@@ -2,9 +2,36 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:CoBCCanteen.ViewModels" xmlns:model="clr-namespace:CoBCCanteen.Models"
+    x:DataType="viewmodels:CheckoutViewModel"
     x:Class="CoBCCanteen.Views.Checkout">
+    <ContentPage.BindingContext>
+        <viewmodels:CheckoutViewModel/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
-        
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="9*"/>
+            </Grid.ColumnDefinitions>
+            <ListView ItemsSource="{Binding basket}" HasUnevenRows="True" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Column="0" Grid.Row="0">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:MenuItem">
+                        <ViewCell>
+                            <StackLayout Padding="10">
+                                <Label Text="{Binding Name}" VerticalOptions="Center" FontSize="16"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="Checkout" Style="{StaticResource PrimaryButtonStyle}" Grid.Column="0" Grid.Row="1"/>
+            <Button Text="Clear Basket" Style="{StaticResource SecondaryButtonStyle}" Grid.Column="0" Grid.Row="2"/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
 
