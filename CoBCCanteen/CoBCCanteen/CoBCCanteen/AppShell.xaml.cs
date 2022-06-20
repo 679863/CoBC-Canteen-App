@@ -12,6 +12,7 @@ namespace CoBCCanteen
             InitializeComponent();
 
             Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
+            Routing.RegisterRoute(nameof(ItemPage), typeof(ItemPage));
         }
 
     }

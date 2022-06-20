@@ -9,6 +9,7 @@ using System.Web;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using MvvmHelpers;
+using CoBCCanteen.Views;
 
 namespace CoBCCanteen.ViewModels
 {
@@ -65,7 +66,7 @@ namespace CoBCCanteen.ViewModels
 
         private async Task GoToItemPage(string itemID)
         {
-            await Shell.Current.DisplayAlert(itemID, itemID, "OK");
+            await Shell.Current.GoToAsync($"//{ nameof(OrderPage) }/{ nameof(ItemPage) }?itemID={ itemID }");
         }
     }
 }

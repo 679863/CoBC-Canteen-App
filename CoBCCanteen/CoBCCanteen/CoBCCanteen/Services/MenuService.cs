@@ -231,6 +231,11 @@ namespace CoBCCanteen.Services
 			return drinks;
 		}
 
+		public async static Task<MenuItem> GetItemByID(int id)
+        {
+			return await db.Table<MenuItem>().Where(x => x.Id == id).FirstOrDefaultAsync();
+        }
+
 		// Called once if changes are made to the database, so the database updates.
 		public static async Task DeleteDatabse()
 		{

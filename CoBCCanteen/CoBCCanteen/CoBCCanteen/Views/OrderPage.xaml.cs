@@ -26,7 +26,7 @@ namespace CoBCCanteen.Views
             }
         }
 
-		private async void CarouselItem_Tapped(object sender, EventArgs e)
+		private void CarouselItem_Tapped(object sender, EventArgs e)
 		{
             StackLayout sl = (StackLayout)sender;
             TapGestureRecognizer tgr = (TapGestureRecognizer)sl.GestureRecognizers[0];
