@@ -3,6 +3,8 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodels="clr-namespace:CoBCCanteen.ViewModels"
+    xmlns:mvvm="clr-namespace:MvvmHelpers;assembly=MvvmHelpers"
+    xmlns:model="clr-namespace:CoBCCanteen.Models"
     xmlns:fa="clr-namespace:FontAwesome"
     x:DataType="viewmodels:OrderPageViewModel"
     x:Class="CoBCCanteen.Views.OrderPage"
@@ -19,8 +21,73 @@
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-        </StackLayout>
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="9*"/>
+            </Grid.ColumnDefinitions>
+            <CarouselView ItemsSource="{Binding MainItems}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="0" Grid.Column="0">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate x:DataType="model:MenuItem">
+                        <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Padding="8">
+                            <Label Text="Mains" HorizontalOptions="Center"/>
+                            <Image HeightRequest="25" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFit">
+                                <Image.Source>
+                                    <UriImageSource Uri="{Binding Image}"/>
+                                </Image.Source>
+                            </Image>
+                            <Label Text="{Binding Name}" HorizontalOptions="Center"/>
+                            <Label Text="{Binding Price}" HorizontalOptions="Center"/>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="CarouselItem_Tapped" CommandParameter="{Binding Id}"/>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+            <CarouselView ItemsSource="{Binding SnackItems}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate x:DataType="model:MenuItem">
+                        <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Padding="8">
+                            <Label Text="Snacks" HorizontalOptions="Center"/>
+                            <Image HeightRequest="25" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFit">
+                                <Image.Source>
+                                    <UriImageSource Uri="{Binding Image}"/>
+                                </Image.Source>
+                            </Image>
+                            <Label Text="{Binding Name}" HorizontalOptions="Center"/>
+                            <Label Text="{Binding Price}" HorizontalOptions="Center"/>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="CarouselItem_Tapped" CommandParameter="{Binding Id}"/>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+            <CarouselView ItemsSource="{Binding DrinkItems}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="2" Grid.Column="0">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate x:DataType="model:MenuItem">
+                        <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Padding="8">
+                            <Label Text="Drinks" HorizontalOptions="Center"/>
+                            <Image HeightRequest="25" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFit">
+                                <Image.Source>
+                                    <UriImageSource Uri="{Binding Image}"/>
+                                </Image.Source>
+                            </Image>
+                            <Label Text="{Binding Name}" HorizontalOptions="Center"/>
+                            <Label Text="{Binding Price}" HorizontalOptions="Center"/>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="CarouselItem_Tapped" CommandParameter="{Binding Id}"/>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
 

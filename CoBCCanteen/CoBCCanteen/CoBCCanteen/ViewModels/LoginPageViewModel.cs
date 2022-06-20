@@ -4,6 +4,7 @@ using CoBCCanteen.Views;
 using Xamarin.Forms;
 using CoBCCanteen.Services;
 using CoBCCanteen.Models;
+using System.IO;
 
 namespace CoBCCanteen.ViewModels
 {
@@ -50,14 +51,16 @@ namespace CoBCCanteen.ViewModels
         public ICommand LoginUser { get; }
 		public ICommand DisplayRegister { get; }
 
-		public LoginPageViewModel()
+        public LoginPageViewModel()
 		{
 			LoginUser = new Command(OnLogin);
 			DisplayRegister = new Command(GoToRegister);
-		}
+        }
 
 		async void OnLogin()
         {
+            await MenuService.DeleteDatabse();
+
             if ((_id == null) | (_password == null))
             {
                 await Shell.Current.DisplayAlert("Invalid Credentials", "No credentials have been entered! Please try again.", "OK");
@@ -70,6 +73,7 @@ namespace CoBCCanteen.ViewModels
                     (App.Current as CoBCCanteen.App).ActiveUser = await UserService.Login(_id, UserService.HashPassword(_password));
                     if ((App.Current as CoBCCanteen.App).ActiveUser != null)
                     {
+                        (App.Current as CoBCCanteen.App).Basket.Clear();
                         await Shell.Current.GoToAsync($"//{ nameof(OrderPage) }");
                     }
                     else

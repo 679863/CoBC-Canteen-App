@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fa="clr-namespace:FontAwesome"
+    x:Class="CoBCCanteen.Views.ItemPage"
+    xmlns:viewmodels="clr-namespace:CoBCCanteen.ViewModels"
+    x:DataType="viewmodels:ItemPageViewModel">
+    <ContentPage.BindingContext>
+        <viewmodels:ItemPageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem>
+            <ToolbarItem.IconImageSource>
+                <!--> Makes use of font awesome icons. Uses FontAwesome.cs to look up icons. <!-->
+                <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:FontAwesomeIcons.BasketShopping}"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="40">
+                <Label HorizontalOptions="Center">
+                    <Label.Text>
+                        <MultiBinding StringFormat="{}{0} - {1}">
+                            <Binding Path="item.Name"/>
+                            <Binding Path="item.Price"/>
+                        </MultiBinding>
+                    </Label.Text>
+                </Label>
+                <BoxView Style="{StaticResource Separator}"/>
+                <Image HeightRequest="100" HorizontalOptions="Center" Margin="0, 0, 0, 15">
+                    <Image.Source>
+                        <UriImageSource Uri="{Binding item.Image}"/>
+                    </Image.Source>
+                </Image>
+                <Label Text="Description:"/>
+                <Label Text="{Binding item.Description}"/>
+                <BoxView Style="{StaticResource Separator}"/>
+                <Label Text="Nutrition:" Margin="0, 15, 0, 0"/>
+                <Label Text="{Binding item.Allergens, StringFormat='Allergens - {0}'}" FontAttributes="Bold"/>
+                <Label>
+                    <Label.Text>  
+                        <MultiBinding StringFormat="{}Per 1x {0} - {1}kcal, {2}g fats, {3}g saturates, {4}g sugars, {5}g salts">
+                            <Binding Path="item.Name"/>
+                            <Binding Path="item.Calories"/>
+                            <Binding Path="item.Fats"/>
+                            <Binding Path="item.Saturates"/>
+                            <Binding Path="item.Sugars"/>
+                            <Binding Path="item.Salts"/>
+                        </MultiBinding>
+                    </Label.Text>
+                </Label>
+                <Frame HorizontalOptions="Center" Margin="0, 15, 0, 10">
+                    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0" Grid.Row="0">
+                            <Image.Source>
+                                <FontImageSource Color="{StaticResource SecondaryPink}" FontFamily="FASolid" Glyph="{x:Static fa:FontAwesomeIcons.Minus}"/>
+                            </Image.Source>
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OnDecrease}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Label Text="{Binding DisplayQuantity}" TextColor="{StaticResource SecondaryPink}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1" Grid.Row="0"/>
+                        <Image HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="2" Grid.Row="0">
+                            <Image.Source>
+                                <FontImageSource Color="{StaticResource SecondaryPink}" FontFamily="FASolid" Glyph="{x:Static fa:FontAwesomeIcons.Plus}"/>
+                            </Image.Source>
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OnIncrease}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Grid>
+                </Frame>
+                <Button Text="Add To Basket" Command="{Binding OnAddToBasket}" Style="{StaticResource PrimaryButtonStyle}"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
+
