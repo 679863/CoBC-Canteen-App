@@ -248,10 +248,9 @@ namespace CoBCCanteen.ViewModels
 		async Task<bool> ValidateCVV()
 		{
 			bool valid = false;
-			bool formatValid = false;
 			StringBuilder sb = new StringBuilder();
 
-			if (_isCVVValid && formatValid)
+			if (_isCVVValid)
 			{
 				valid = true;
 			}

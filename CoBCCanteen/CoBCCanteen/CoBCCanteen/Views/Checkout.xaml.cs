@@ -24,6 +24,18 @@ namespace CoBCCanteen.Views
                 viewModel.Init();
             }
         }
+
+        private void ItemDelete_Tapped(object sender, EventArgs e)
+        {
+            Image img = (Image)sender;
+            TapGestureRecognizer tgr = (TapGestureRecognizer)img.GestureRecognizers[0];
+            string parameter = tgr.CommandParameter.ToString();
+
+            if (viewModel.OnDelete.CanExecute(parameter))
+            {
+                viewModel.OnDelete.Execute(parameter);
+            }
+        }
     }
 }
 
