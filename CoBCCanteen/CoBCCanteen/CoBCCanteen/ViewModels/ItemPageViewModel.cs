@@ -94,12 +94,14 @@ namespace CoBCCanteen.ViewModels
 			}
 		}
 
-		void AddToBasket()
+		async void AddToBasket()
         {
             for (int i = 0; i < int.Parse(DisplayQuantity); i++)
             {
 				(App.Current as CoBCCanteen.App).Basket.Add(item);
             }
+
+			await Shell.Current.DisplayAlert("Item Added To Basket", $"{ DisplayQuantity }x { item.Name } has been added to your basket!", "OK");
         }
 	}
 }
