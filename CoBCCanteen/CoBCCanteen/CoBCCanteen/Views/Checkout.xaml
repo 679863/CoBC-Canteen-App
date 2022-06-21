@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:CoBCCanteen.ViewModels" xmlns:model="clr-namespace:CoBCCanteen.Models"
+    xmlns:fa="clr-namespace:FontAwesome"
+    x:DataType="viewmodels:CheckoutViewModel"
+    x:Class="CoBCCanteen.Views.Checkout">
+    <ContentPage.BindingContext>
+        <viewmodels:CheckoutViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="9*"/>
+            </Grid.ColumnDefinitions>
+            <ListView ItemsSource="{Binding basket}" HasUnevenRows="True" SelectionMode="None" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Column="0" Grid.Row="0">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:MenuItem">
+                        <ViewCell>
+                            <Grid Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="9*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label VerticalOptions="Center" HorizontalOptions="Start" FontSize="16" Grid.Column="0" Grid.Row="0">
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="Name"/>
+                                            <Binding Path="Price"/>
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                                <Image VerticalOptions="Center" HorizontalOptions="End" Grid.Column="1" Grid.Row="0">
+                                    <Image.Source>
+                                        <FontImageSource Color="{StaticResource SecondaryPink}" FontFamily="FASolid" Glyph="{x:Static fa:FontAwesomeIcons.DeleteLeft}"/>
+                                    </Image.Source>
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="ItemDelete_Tapped" CommandParameter="{Binding Id}"/>
+
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Label Text="{Binding DisplayTotal}" VerticalOptions="Center" Grid.Column="0" Grid.Row="1"/>
+            <Button Command="{Binding OnCheckout}" Text="Checkout" Style="{StaticResource PrimaryButtonStyle}" Grid.Column="0" Grid.Row="2"/>
+            <Button Command="{Binding OnClear}" Text="Clear Basket" Style="{StaticResource SecondaryButtonStyle}" Grid.Column="0" Grid.Row="3"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
+
