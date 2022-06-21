@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using CoBCCanteen.Models;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace CoBCCanteen
 {
@@ -30,6 +31,7 @@ namespace CoBCCanteen
             InitializeComponent();
             MainPage = new AppShell();
             Basket = new List<Models.MenuItem>();
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-GB");
         }
 
         protected override void OnStart ()

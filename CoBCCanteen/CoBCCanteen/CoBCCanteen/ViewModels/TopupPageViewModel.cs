@@ -222,25 +222,34 @@ namespace CoBCCanteen.ViewModels
 			bool valid = false;
 			StringBuilder sb = new StringBuilder();
 
-			if (_isExpiryDateValid)
+			// OPTIMISATION
+			if ((int.Parse(ExpiryDate.Substring(0, 2))) >= 1 && (int.Parse(ExpiryDate.Substring(0, 2)) <= 12))
 			{
-				valid = true;
-			}
-			else
-			{
-				valid = false;
-				sb.Clear();
-
-				foreach (var error in _errorExpiryDate)
+				if (_isExpiryDateValid)
 				{
-					if (error is string)
-					{
-						sb.Append(((string)error).ToString() + " ");
-					}
+					valid = true;
 				}
+				else
+				{
+					valid = false;
+					sb.Clear();
 
-				await Shell.Current.DisplayAlert("Invalid Expiry Date", $"The entered expiry date is invalid! {sb.ToString()}Please try again.", "OK");
+					foreach (var error in _errorExpiryDate)
+					{
+						if (error is string)
+						{
+							sb.Append(((string)error).ToString() + " ");
+						}
+					}
+
+					await Shell.Current.DisplayAlert("Invalid Expiry Date", $"The entered expiry date is invalid! {sb.ToString()}Please try again.", "OK");
+				}
 			}
+            else
+            {
+				await Shell.Current.DisplayAlert("Invalid Expiry Date", $"The entered expiry date is invalid! The expiring month must be either or between 01 and 12. Please try again.", "OK");
+			}
+
 
 			return valid;
 		}
