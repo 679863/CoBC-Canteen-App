@@ -36,7 +36,7 @@
                                     <Label.Text>
                                         <MultiBinding StringFormat="{}{0} - {1}">
                                             <Binding Path="Name"/>
-                                            <Binding Path="Price"/>
+                                            <Binding Path="Price" StringFormat="{}{0:C}" Converter="{StaticResource MathExpressionConverter}" ConverterParameter="x/100"/>
                                         </MultiBinding>
                                     </Label.Text>
                                 </Label>

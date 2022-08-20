@@ -77,9 +77,9 @@ namespace CoBCCanteen.Services
 			//await DeleteDatabse();
 			await Init();
 
-			// Stores the user's first and last name in a correct format.
-			string firstname = _firstname[0].ToString().ToUpper() + _firstname.Substring(1);
-			string lastname = _lastname[0].ToString().ToUpper() + _lastname.Substring(1);
+			// OPTIMISATION
+			string firstname = _firstname[0].ToString().ToUpper() + _firstname.Substring(1).ToLower();
+			string lastname = _lastname[0].ToString().ToUpper() + _lastname.Substring(1).ToLower();
 
 			// Checks if a user with entered id or email already exists.
 			bool isUserExisting = await (IsUserExisting(_id, _email));

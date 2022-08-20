@@ -37,11 +37,12 @@
                             <Label Text="Mains" HorizontalOptions="Center"/>
                             <Image HeightRequest="25" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFit">
                                 <Image.Source>
-                                    <UriImageSource Uri="{Binding Image}"/>
+                                    <!-- OPTIMISATION -->
+                                    <UriImageSource Uri="{Binding Image}" CachingEnabled="True" CacheValidity="7"/>
                                 </Image.Source>
                             </Image>
                             <Label Text="{Binding Name}" HorizontalOptions="Center"/>
-                            <Label Text="{Binding Price}" HorizontalOptions="Center"/>
+                            <Label Text="{Binding Price, StringFormat='{}{0:C}', Converter={StaticResource MathExpressionConverter}, ConverterParameter='x/100'}" HorizontalOptions="Center"/>
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="CarouselItem_Tapped" CommandParameter="{Binding Id}"/>
                             </StackLayout.GestureRecognizers>
@@ -56,11 +57,11 @@
                             <Label Text="Snacks" HorizontalOptions="Center"/>
                             <Image HeightRequest="25" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFit">
                                 <Image.Source>
-                                    <UriImageSource Uri="{Binding Image}"/>
+                                    <UriImageSource Uri="{Binding Image}" CachingEnabled="True" CacheValidity="7"/>
                                 </Image.Source>
                             </Image>
                             <Label Text="{Binding Name}" HorizontalOptions="Center"/>
-                            <Label Text="{Binding Price}" HorizontalOptions="Center"/>
+                            <Label Text="{Binding Price, StringFormat='{}{0:C}', Converter={StaticResource MathExpressionConverter}, ConverterParameter='x/100'}" HorizontalOptions="Center"/>
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="CarouselItem_Tapped" CommandParameter="{Binding Id}"/>
                             </StackLayout.GestureRecognizers>
@@ -75,11 +76,11 @@
                             <Label Text="Drinks" HorizontalOptions="Center"/>
                             <Image HeightRequest="25" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFit">
                                 <Image.Source>
-                                    <UriImageSource Uri="{Binding Image}"/>
+                                    <UriImageSource Uri="{Binding Image}" CachingEnabled="True" CacheValidity="7"/>
                                 </Image.Source>
                             </Image>
                             <Label Text="{Binding Name}" HorizontalOptions="Center"/>
-                            <Label Text="{Binding Price}" HorizontalOptions="Center"/>
+                            <Label Text="{Binding Price, StringFormat='{}{0:C}', Converter={StaticResource MathExpressionConverter}, ConverterParameter='x/100'}" HorizontalOptions="Center"/>
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="CarouselItem_Tapped" CommandParameter="{Binding Id}"/>
                             </StackLayout.GestureRecognizers>

@@ -24,14 +24,16 @@
                     <Label.Text>
                         <MultiBinding StringFormat="{}{0} - {1}">
                             <Binding Path="item.Name"/>
-                            <Binding Path="item.Price"/>
+                            <!-- OPTIMISATION -->
+                            <Binding Path="item.Price" StringFormat="{}{0:C}" Converter="{StaticResource MathExpressionConverter}" ConverterParameter="x/100"/>
                         </MultiBinding>
                     </Label.Text>
                 </Label>
                 <BoxView Style="{StaticResource Separator}"/>
                 <Image HeightRequest="100" HorizontalOptions="Center" Margin="0, 0, 0, 15">
                     <Image.Source>
-                        <UriImageSource Uri="{Binding item.Image}"/>
+                        <!-- OPTIMISATION -->
+                        <UriImageSource Uri="{Binding item.Image}" CachingEnabled="True" CacheValidity="7"/>
                     </Image.Source>
                 </Image>
                 <Label Text="Description:"/>
